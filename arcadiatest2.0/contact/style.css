@@ -1,0 +1,94 @@
+.form-container{
+     background-color: #B6BE64;
+    color: #2B390D;
+}
+
+.image {
+    text-align: center;
+    margin-bottom: 20px;
+    padding: 20px;
+}
+
+.image img {
+    max-width: 50%; 
+    height: auto;
+
+}
+
+/* Form */
+form {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    padding: 20px;
+    margin: 0 auto;
+    
+
+   
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    font-size: 1.125rem;
+    color: #2B390D;
+    margin-bottom: 5px;
+    display: block;
+}
+
+input[type="email"],
+input[type="text"],
+textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+textarea {
+    resize: vertical;
+}
+
+button[type="submit"].btn {
+    padding: 10px 20px;
+    font-size: 1.125rem;
+    color: #F5EDD9;
+    background-color: #A54835;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button[type="submit"].btn:hover {
+    background-color: #a54835af;
+}
+
+/* Responsive Styles */
+@media (max-width: 576px) {
+    .form-container {
+        padding: 10px;
+    }
+
+    .image img {
+        max-width: 100%; /* Ensure the image remains responsive on small screens */
+    }
+
+    label {
+        font-size: 1rem;
+    }
+
+    input[type="email"],
+    input[type="text"],
+    textarea {
+        font-size: 0.875rem;
+    }
+
+    button[type="submit"].btn {
+        font-size: 1rem;
+    }
+}

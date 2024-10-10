@@ -1,0 +1,152 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5dc; /* Couleur de fond beige */
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+.services, .horaires {
+    background-color: #edf2e0; /* Couleur de fond verte claire */
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    max-width: 1000px;
+}
+
+h2 {
+    color: #627e4d; /* Couleur verte pour le titre */
+    text-align: center;
+    background-color: #627e4d; /* Couleur de fond verte */
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #fff; /* Couleur du texte en blanc */
+}
+
+.service, .horaires form {
+    background-color: #fafaf0; /* Couleur de fond très claire */
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+}
+
+.service h3, .horaires h3 {
+    color: #627e4d; /* Couleur verte pour le sous-titre */
+    font-size: 20px;
+    margin-top: 0;
+}
+
+.service p {
+    color: #333;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.service img {
+    max-width: 100px;
+    height: auto;
+    display: block;
+    margin: 10px 0;
+}
+
+.service button, .horaires button {
+    background-color: #627e4d; /* Couleur des boutons en vert */
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.service button.delete {
+    background-color: #b00000; /* Couleur rouge pour le bouton supprimer */
+}
+
+.service form, .horaires form {
+    display: flex;
+    flex-direction: column;
+}
+
+.service form input[type="text"], 
+.service form textarea, 
+.horaires form input[type="time"] {
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.hidden {
+    display: none;
+}
+
+button {
+    background-color: #627e4d;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button.delete {
+    background-color: #b00000;
+}
+
+.services h2 {
+    background-color: #627e4d;
+    color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.services form {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+.services form input, 
+.services form textarea {
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.services form button {
+    align-self: flex-start;
+}
+
+.horaires h2 {
+    background-color: #627e4d;
+    color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.horaires form {
+    display: flex;
+    flex-direction: column;
+}
+
+.horaires form label {
+    margin: 10px 0 5px;
+    color: #333;
+    font-weight: bold;
+}
+
+.horaires form input {
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}

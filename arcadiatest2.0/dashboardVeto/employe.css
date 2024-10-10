@@ -1,0 +1,77 @@
+/* veterinaire_lecture.css */
+
+/* Styles de base */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* En-tête de la section */
+.intro {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.intro h2 {
+    color: #333;
+}
+
+.intro p {
+    color: #666;
+    font-size: 1.1em;
+}
+
+/* Liste des animaux */
+.animal-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.animal-card {
+    flex: 1 1 calc(33.333% - 40px);
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+.animal-card h3 {
+    margin-top: 0;
+    color: #333;
+}
+
+/* Détails de l'animal */
+.animal-details {
+    margin-top: 10px;
+}
+
+.animal-details p {
+    color: #555;
+    margin: 5px 0;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .animal-card {
+        flex: 1 1 calc(50% - 20px);
+    }
+}
+
+@media (max-width: 480px) {
+    .animal-card {
+        flex: 1 1 100%;
+    }
+}

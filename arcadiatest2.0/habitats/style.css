@@ -1,0 +1,235 @@
+.habitats {
+  display: grid;
+  grid-auto-columns: 1fr;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto auto;
+  gap: 0; /* Suppression de l'espace entre les sections */
+  grid-template-areas:
+    "introHabitats"
+    "hoverHabitats";
+
+
+}
+
+.introHabitats {
+  color: #f7edd9;
+  background-color: #5d6a41;
+  grid-area: introHabitats;
+  display: grid;
+  grid-auto-columns: 1fr;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto auto;
+
+  margin-bottom: 0; 
+}
+
+.titreHabitats {
+  justify-self: center;
+  text-align: center;
+  font-size: 2.5em;
+  margin-bottom: 10px;
+}
+
+.paragrapheHabitats {
+  justify-self: center;
+  text-align: center;
+  font-size: 1.2em;
+  margin-bottom: 20px;
+  width: 70%;
+}
+
+.panthere {
+  width: 100%;
+  max-width: 400px;
+  justify-self: end;
+  align-self: end;
+
+
+}
+
+.habitats-list {
+  display: grid;
+  align-self: center;
+  justify-self: center;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+  grid-gap: 20px;
+  grid-area: hoverHabitats;
+  width: 90%;
+  margin-top: 10px;
+  margin-bottom: 10px; /* Suppression de la marge en haut */
+}
+
+.habitat {
+  position: relative;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  transition: transform 0.3s ease;
+}
+
+.habitat:hover {
+  transform: scale(1.05);
+}
+
+.habitat-header {
+  cursor: pointer;
+}
+
+.habitat-image {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+}
+
+.habitat-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.habitat-header:hover .habitat-overlay {
+  opacity: 1;
+}
+
+.habitat-link {
+  color: #f7edd9;
+  background-color: #b6be64;
+  padding: 10px 20px;
+  text-align: center;
+  font-size: 1.5em;
+  text-transform: uppercase;
+  border-radius: 5px;
+}
+
+.habitat-details {
+  padding: 20px;
+  background-color: #fff;
+  border: 2px solid #b6be64;
+  border-radius: 10px;
+  margin-top: 10px;
+  display: none;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.habitat-details h2 {
+  margin-top: 0;
+  text-align: center;
+  font-size: 2em;
+  color: #5d6a41;
+  border-bottom: 2px solid #b6be64;
+  padding-bottom: 10px;
+}
+
+.habitat-details p {
+  text-align: center;
+  color: #333;
+  font-size: 1.2em;
+  margin-bottom: 20px;
+}
+
+.animal-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+.animal-item {
+  width: 100px;
+  height: 100px;
+  overflow: hidden;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  transition: transform 0.3s ease;
+}
+
+.animal-item:hover {
+  transform: scale(1.1);
+}
+
+.animal-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Responsive styles pour les téléphones */
+@media (max-width: 768px) {
+  .introHabitats {
+    grid-template-columns: 1fr;
+    text-align: center;
+    padding: 10px;
+    margin-bottom: 0; /* Suppression de la marge en bas */
+  }
+
+  .titreHabitats {
+    font-size: 1.5em;
+  }
+
+  .paragrapheHabitats {
+    width: 100%;
+    margin: 0;
+    padding: 0 10px;
+    font-size: 1em;
+  }
+
+  .panthere {
+    width: 100%;
+    max-width: 200px;
+    margin: 10px auto;
+  }
+
+  .habitats-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 0; /* Suppression de la marge en haut */
+  }
+
+  .habitat {
+    width: 100%;
+  }
+
+  .habitat-image {
+    height: 150px;
+  }
+
+  .habitat-link {
+    font-size: 1em;
+    padding: 5px 10px;
+  }
+
+  .habitat-details {
+    width: 100%;
+    padding: 10px;
+  }
+
+  .habitat-details h2 {
+    font-size: 1.2em;
+  }
+
+  .animal-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    gap: 5px;
+  }
+
+  .animal-item {
+    width: 80px;
+    height: 80px;
+  }
+
+  .close-btn {
+    font-size: 1.2em;
+  }
+}

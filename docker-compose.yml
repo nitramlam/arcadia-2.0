@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: arcadia-web
+    volumes:
+      - ./arcadiatest2.0:/var/www/html
+    ports:
+      - "8000:80"
+    networks:
+      - arcadia-network
+
+  db:
+    image: mysql:8
+    container_name: arcadia-db
+    environment:
+      MYSQL_ROOT_PASSWORD: arcadia
+      MYSQL_USER: arcadia
+      MYSQL_PASSWORD: arcadia
+      MYSQL_DATABASE: arcadia
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - arcadia-network
+
+  phpmyadmin:
+    image: arm64v8/phpmyadmin
+    container_name: arcadia-phpmyadmin
+    environment:
+      PMA_HOST: arcadia-db
+      MYSQL_ROOT_PASSWORD: arcadia
+    ports:
+      - "9080:80"
+    networks:
+      - arcadia-network
+
+networks:
+  arcadia-network:
+
+volumes:
+  db_data:
