@@ -19,38 +19,37 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $user_email = $_POST['email']; // Adresse e-mail de l'utilisateur
     $subject = $_POST['subject'];
     $message = $_POST['message'];
-    $recipient_email = 'employearcadia33@gmail.com'; // Adresse e-mail fixe pour tous les destinataires
+    $recipient_email = 'employearcadia33@gmail.com'; // Adresse e-mail fixe pour le destinataire
 
     $mail = new PHPMailer(true);
 
     try {
-        //Server settings
-        $mail->SMTPDebug = 0;                                      // Disable verbose debug output
-        $mail->isSMTP();                                           // Send using SMTP
-        $mail->Host       = 'smtp.gmail.com';                      // Set the SMTP server to send through
-        $mail->SMTPAuth   = true;                                  // Enable SMTP authentication
-        $mail->Username   = 'employearcadia33@gmail.com';             // SMTP username
-        $mail->Password   = 'rvjk rcrm kfwp jtbd';                 // SMTP password (mot de passe d'application)
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;        // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` also accepted
-        $mail->Port       = 587;                                   // TCP port to connect to
+        // Configuration du serveur SMTP
+        $mail->isSMTP();
+        $mail->Host       = 'smtp.gmail.com';
+        $mail->SMTPAuth   = true;
+        $mail->Username   = 'employearcadia33@gmail.com'; // Adresse e-mail utilisée pour l'authentification SMTP
+        $mail->Password   = 'innv jslk sqfd ovjb'; // Mot de passe d'application pour Gmail
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+        $mail->Port       = 587;
 
-        //Recipients
-        $mail->setFrom('josearcadia33@gmail.com', 'Mailer');       // Adresse e-mail de l'expéditeur
-        $mail->addAddress($recipient_email);                       // Adresse e-mail de destination (toujours josearcadia33@gmail.com)
-        $mail->addReplyTo($user_email);                            // Adresse e-mail de l'utilisateur pour la réponse
+        // Configuration des destinataires
+        $mail->setFrom($user_email, 'Utilisateur du formulaire'); // L'adresse e-mail de l'utilisateur est définie comme expéditeur
+        $mail->addAddress($recipient_email); // L'adresse e-mail du destinataire est fixe
+        $mail->addReplyTo($user_email); // Permettre au destinataire de répondre directement à l'utilisateur
 
-        // Content
-        $mail->isHTML(true);                                       // Set email format to HTML
+        // Contenu de l'e-mail
+        $mail->isHTML(true);
         $mail->Subject = $subject;
-        $mail->Body    = "Adresse e-mail de l'utilisateur: " . $user_email . "<br><br>" . $message;
-        $mail->AltBody = "Adresse e-mail de l'utilisateur: " . $user_email . "\n\n" . strip_tags($message);
+        $mail->Body    = "Adresse e-mail de l'utilisateur : " . htmlspecialchars($user_email) . "<br><br>" . nl2br(htmlspecialchars($message));
+        $mail->AltBody = "Adresse e-mail de l'utilisateur : " . htmlspecialchars($user_email) . "\n\n" . htmlspecialchars($message);
 
+        // Envoi de l'e-mail
         $mail->send();
-        echo json_encode(['status' => 'success', 'message' => 'Message has been sent']);
+        echo json_encode(['status' => 'success', 'message' => 'Message envoyé avec succès']);
     } catch (Exception $e) {
-        echo json_encode(['status' => 'error', 'message' => "Message could not be sent. Mailer Error: {$mail->ErrorInfo}"]);
+        echo json_encode(['status' => 'error', 'message' => "Le message n'a pas pu être envoyé. Erreur de Mailer : {$mail->ErrorInfo}"]);
     }
 } else {
-    echo json_encode(['status' => 'error', 'message' => 'Invalid request method.']);
+    echo json_encode(['status' => 'error', 'message' => 'Méthode de requête invalide.']);
 }
-?>
