@@ -2,7 +2,10 @@
 session_start();
 require_once(__DIR__ . '/../includes/auth.php');
 require_once(__DIR__ . '/../includes/header.php');
-require_once(__DIR__ . '/../db.php'); // Connexion à la base de données
+require_once(__DIR__ . '/../db.php'); // Connexion à MySQL
+
+// Connexion à MongoDB
+$manager = new MongoDB\Driver\Manager("mongodb+srv://martinlamalle:456123Fx37!@arcadia.t7ei6.mongodb.net/?retryWrites=true&w=majority&appName=arcadia");
 
 // Vérification de la connexion de l'utilisateur
 if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'administrateur') {
@@ -25,10 +28,44 @@ function uploadImage($file) {
     return null;
 }
 
+// Fonction pour ajouter ou mettre à jour l'animal dans MongoDB
+// Fonction pour ajouter ou mettre à jour l'animal dans MongoDB
+function syncAnimalToMongoDB($animalId, $nom) {
+    global $manager;
+
+    // Mise à jour du document dans MongoDB
+    $bulk = new MongoDB\Driver\BulkWrite;
+    $filter = ['animal_id' => (string)$animalId];
+    $update = [
+        '$set' => [
+            'animal_id' => (string)$animalId,
+            'animal_name' => $nom,
+            // On continue à utiliser le view_count mais sans jamais l'afficher
+            'view_count' => 0  // Par défaut, on ne l'affiche pas
+        ]
+    ];
+    $bulk->update($filter, $update, ['upsert' => true]); // 'upsert' ajoute si l'animal n'existe pas
+    $manager->executeBulkWrite('arcadia.animal_views', $bulk);
+}
+
+// Fonction pour supprimer l'animal de MongoDB
+function deleteAnimalFromMongoDB($animalId) {
+    global $manager;
+
+    // Suppression du document dans MongoDB
+    $bulk = new MongoDB\Driver\BulkWrite;
+    $filter = ['animal_id' => (string)$animalId];
+    $bulk->delete($filter);
+    $manager->executeBulkWrite('arcadia.animal_views', $bulk);
+}
+
 // Fonction pour créer une page personnalisée pour chaque animal
 function createAnimalPage($animalId) {
     global $conn;
     
+    // Connexion à MongoDB
+    $manager = new MongoDB\Driver\Manager("mongodb+srv://martinlamalle:456123Fx37!@arcadia.t7ei6.mongodb.net/?retryWrites=true&w=majority&appName=arcadia");
+
     $stmt = $conn->prepare("SELECT * FROM animal WHERE animal_id = ?");
     $stmt->bind_param("i", $animalId);
     $stmt->execute();
@@ -45,7 +82,22 @@ function createAnimalPage($animalId) {
     }
 
     $pageContent = <<<PHP
-<?php require_once (__DIR__ . '/../includes/header.php'); ?>
+<?php
+require_once (__DIR__ . '/../includes/header.php');
+
+// Connexion à MongoDB pour incrémenter le compteur de vues
+\$manager = new MongoDB\Driver\Manager("mongodb+srv://martinlamalle:456123Fx37!@arcadia.t7ei6.mongodb.net/?retryWrites=true&w=majority&appName=arcadia");
+
+// Incrémentation du view_count dans MongoDB
+\$bulk = new MongoDB\Driver\BulkWrite;
+\$filter = ['animal_id' => "{$animalId}"];
+\$update = [
+    '\$inc' => ['view_count' => 1]  // Incrémenter de 1 à chaque accès
+];
+\$bulk->update(\$filter, \$update);
+\$manager->executeBulkWrite('arcadia.animal_views', \$bulk);
+
+?>
 <!DOCTYPE html>
 <html lang='fr'>
 <head>
@@ -112,6 +164,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $animalId = $conn->insert_id;
         createAnimalPage($animalId);
+        
+        // Synchronisation avec MongoDB
+        syncAnimalToMongoDB($animalId, $nom);
 
         // Mise à jour de l'URL de la page personnalisée dans la base de données
         $stmt = $conn->prepare("UPDATE animal SET page_personnalisee_url = ? WHERE animal_id = ?");
@@ -143,12 +198,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // Recréer la page personnalisée
         createAnimalPage($animal_id);
+
+        // Synchronisation avec MongoDB
+        syncAnimalToMongoDB($animal_id, $nom);
     } elseif (isset($_POST['delete_animal'])) {
         // Supprimer un animal
         $animal_id = $_POST['animal_id'];
         $stmt = $conn->prepare("DELETE FROM animal WHERE animal_id = ?");
         $stmt->bind_param("i", $animal_id);
         $stmt->execute();
+
+        // Suppression de MongoDB
+        deleteAnimalFromMongoDB($animal_id);
     }
 }
 
@@ -247,5 +308,3 @@ $animals = $animalQuery->fetch_all(MYSQLI_ASSOC);
             document.getElementById('add-animal-form').style.display = 'none';
         }
     </script>
-</body>
-</html>

@@ -1,4 +1,19 @@
-<?php require_once (__DIR__ . '/../includes/header.php'); ?>
+<?php
+require_once (__DIR__ . '/../includes/header.php');
+
+// Connexion à MongoDB pour incrémenter le compteur de vues
+$manager = new MongoDB\Driver\Manager("mongodb+srv://martinlamalle:456123Fx37!@arcadia.t7ei6.mongodb.net/?retryWrites=true&w=majority&appName=arcadia");
+
+// Incrémentation du view_count dans MongoDB
+$bulk = new MongoDB\Driver\BulkWrite;
+$filter = ['animal_id' => "19"];
+$update = [
+    '$inc' => ['view_count' => 1]  // Incrémenter de 1 à chaque accès
+];
+$bulk->update($filter, $update);
+$manager->executeBulkWrite('arcadia.animal_views', $bulk);
+
+?>
 <!DOCTYPE html>
 <html lang='fr'>
 <head>
@@ -13,12 +28,12 @@
         <div class="info-section">
             <h2>Informations Générales</h2>
             <div class="general-info">
-                <p class="species-info"><strong>Espèce:</strong> lézard à crête du désert</p>
+                <p class="species-info"><strong>Espèce:</strong> 0</p>
                 <p class="description-info"><strong>Description:</strong> Le lézard à crête du désert (Stellagama stellio) est une espèce répandue dans les régions semi-arides et les savanes d’Afrique du Nord, du Moyen-Orient et de l’Asie. Reconnaissable par sa crête d’épines et ses couleurs variant du gris au brun, il se nourrit d’insectes et de petits mammifères. Ce lézard est connu pour sa capacité à grimper habilement sur les surfaces rocheuses et à se fondre dans son environnement pour se camoufler des prédateurs.
 </p>
                 <p class="weight-info"><strong>Poids:</strong> 0.70 kg</p>
                 <p class="sex-info"><strong>Sexe:</strong> M</p>
-                <p class="origin-continent-info"><strong>Continent d'origine:</strong> Afrique</p>
+                <p class="origin-continent-info"><strong>Continent d'origine:</strong> 0</p>
                 <p class="habitat-info"><strong>Habitat:</strong> savane</p>
             </div>
         </div>

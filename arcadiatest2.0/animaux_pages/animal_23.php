@@ -1,4 +1,19 @@
-<?php require_once (__DIR__ . '/../includes/header.php'); ?>
+<?php
+require_once (__DIR__ . '/../includes/header.php');
+
+// Connexion à MongoDB pour incrémenter le compteur de vues
+$manager = new MongoDB\Driver\Manager("mongodb+srv://martinlamalle:456123Fx37!@arcadia.t7ei6.mongodb.net/?retryWrites=true&w=majority&appName=arcadia");
+
+// Incrémentation du view_count dans MongoDB
+$bulk = new MongoDB\Driver\BulkWrite;
+$filter = ['animal_id' => "23"];
+$update = [
+    '$inc' => ['view_count' => 1]  // Incrémenter de 1 à chaque accès
+];
+$bulk->update($filter, $update);
+$manager->executeBulkWrite('arcadia.animal_views', $bulk);
+
+?>
 <!DOCTYPE html>
 <html lang='fr'>
 <head>
@@ -13,11 +28,11 @@
         <div class="info-section">
             <h2>Informations Générales</h2>
             <div class="general-info">
-                <p class="species-info"><strong>Espèce:</strong> héron cendré des Everglades</p>
+                <p class="species-info"><strong>Espèce:</strong> 0</p>
                 <p class="description-info"><strong>Description:</strong> Le héron cendré des Everglades, connu sous son nom scientifique Ardea herodias, est une espèce emblématique des marais et des zones humides de Floride. Reconnaissable à son plumage cendré, à son long cou et à ses pattes jaunes, il se nourrit principalement de poissons, de grenouilles et d’insectes qu’il chasse avec agilité dans les eaux peu profondes. Ce héron joue un rôle crucial dans l’écosystème en régulant les populations de poissons et en contribuant à la biodiversité des habitats aquatiques.</p>
                 <p class="weight-info"><strong>Poids:</strong> 10.00 kg</p>
                 <p class="sex-info"><strong>Sexe:</strong> M</p>
-                <p class="origin-continent-info"><strong>Continent d'origine:</strong> Amérique du Nord</p>
+                <p class="origin-continent-info"><strong>Continent d'origine:</strong> 0</p>
                 <p class="habitat-info"><strong>Habitat:</strong> marais</p>
             </div>
         </div>
