@@ -1,98 +1,128 @@
+/* Style global du body */
+body {
+    margin: 0;
+    padding: 0;
 
-main {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+    background-color: #5D6A41; /* Ajout d'un background pour tout le site */
 }
 
+/* Conteneur principal qui ne touche pas les bords de l'écran */
+.content-container {
+    max-width: 90%; 
+    margin: 50px auto; /* Ajoute de la marge en haut et en bas */
+    padding: 20px;
+    background-color: #F7EDD9;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Conteneur principal pour la création de compte */
 .create-account {
-    width: 60%;
+    width: 100%;
+    max-width: 800px;
     background-color: #A4C639;
-    padding: 40px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 50px;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
     text-align: left;
 }
 
+/* Titre principal */
 .create-account h1 {
     color: #2F3E19;
-    margin-bottom: 20px;
-    font-size: 32px;
+    margin-bottom: 30px;
+    font-size: 36px;
     text-align: center;
+    font-weight: bold;
 }
 
+/* Groupes de champs du formulaire */
 .form-group {
-    margin-bottom: 20px;
+    margin-bottom: 30px; /* Plus d'espace entre les champs */
 }
 
+/* Labels des champs */
 .form-group label {
     display: block;
     color: #2F3E19;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
     font-size: 18px;
+    font-weight: bold;
 }
 
+/* Champs de texte, email et mot de passe */
 .form-group input[type="text"],
 .form-group input[type="email"],
 .form-group input[type="password"] {
     width: 100%;
-    padding: 10px;
+    padding: 12px;
     border: 1px solid #ccc;
-    border-radius: 4px;
+    border-radius: 6px;
     background-color: #F5F5F5;
     font-size: 16px;
+    color: #333;
 }
 
+/* Options de rôle */
 .role-options {
     display: flex;
-    gap: 20px;
-    margin-bottom: 20px;
+    gap: 30px; /* Plus d'espace entre les options */
+    margin-bottom: 30px;
 }
 
 .role-options label {
     display: flex;
     align-items: center;
     font-size: 16px;
+    color: #2F3E19;
 }
 
-.role-options input[type="checkbox"] {
+.role-options input[type="radio"] {
     margin-right: 10px;
 }
 
+/* Conteneur de mot de passe */
 .password-container {
     position: relative;
 }
 
+/* Input du mot de passe */
 .password-container input {
-    width: calc(100% - 30px);
-    padding-right: 30px;
+    width: calc(100% - 40px);
+    padding-right: 40px;
 }
 
+/* Icône pour afficher le mot de passe */
 .password-container .toggle-password {
     position: absolute;
     right: 10px;
     top: 50%;
     transform: translateY(-50%);
     cursor: pointer;
-    font-size: 18px;
+    font-size: 20px;
+    color: #8B4513;
 }
 
+/* Bouton de soumission */
 .btn-submit {
     background-color: #8B4513;
     color: white;
-    padding: 10px 20px;
+    padding: 12px 25px;
     border: none;
-    border-radius: 4px;
+    border-radius: 6px;
     cursor: pointer;
-    font-size: 16px;
-  
+    font-size: 18px;
+    font-weight: bold;
+    width: 30%;
+    transition: background-color 0.3s;
+    margin-bottom: 30px;
 }
 
 .btn-submit:hover {
     background-color: #A0522D;
 }
 
+/* Messages d'erreur et de succès */
 .error-message {
     color: red;
     font-size: 16px;
@@ -103,4 +133,33 @@ main {
     color: green;
     font-size: 16px;
     margin-bottom: 20px;
+}
+
+/* Style du tableau des utilisateurs */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 40px;
+    background-color: #FFFFFF;
+}
+
+table th, table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 2px solid #8B4513;
+    color: #333;
+}
+
+table th {
+    background-color: #167BFF;
+    color: #FFFFFF;
+    font-weight: bold;
+}
+
+table tr:nth-child(even) {
+    background-color: #F7EDD9;
+}
+
+table tr:hover {
+    background-color: #B6BE64;
 }

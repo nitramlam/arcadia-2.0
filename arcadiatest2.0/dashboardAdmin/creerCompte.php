@@ -16,11 +16,6 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'administrateur') {
 
 // Gestion des requêtes POST
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Vérifier le token CSRF
-    if (!isset($_POST['csrf_token']) || !hash_equals($_SESSION['csrf_token'], $_POST['csrf_token'])) {
-        die('Échec de la validation CSRF.');
-    }
-
     if (isset($_POST['delete_user'])) {
         // Suppression d'un utilisateur
         $user_id = intval($_POST['user_id']);
@@ -146,91 +141,86 @@ if ($result) {
     </script>
 </head>
 <body>
-    <h1>Créer un compte utilisateur</h1>
-    <?php if ($error_message): ?>
-        <p class="error-message"><?= htmlspecialchars($error_message) ?></p>
-    <?php endif; ?>
-    <?php if ($success_message): ?>
-        <p class="success-message"><?= htmlspecialchars($success_message) ?></p>
-    <?php endif; ?>
+    <div class="content-container">
+        <h1>Créer un compte utilisateur</h1>
+        <?php if ($error_message): ?>
+            <p class="error-message"><?= htmlspecialchars($error_message) ?></p>
+        <?php endif; ?>
+        <?php if ($success_message): ?>
+            <p class="success-message"><?= htmlspecialchars($success_message) ?></p>
+        <?php endif; ?>
 
-    <form method="post" action="" onsubmit="return validateForm();">
-        <!-- CSRF token ajouté dans chaque formulaire -->
-        <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token'], ENT_QUOTES, 'UTF-8'); ?>">
-        
-        <div class="form-group">
-            <label for="role">Créer un compte:</label>
-            <div class="role-options">
-                <label><input type="radio" name="role" value="veterinaire"> Vétérinaire</label>
-                <label><input type="radio" name="role" value="employe"> Employé</label>
+        <form method="post" action="" onsubmit="return validateForm();">
+            <div class="form-group">
+                <label for="role">Créer un compte:</label>
+                <div class="role-options">
+                    <label><input type="radio" name="role" value="veterinaire"> Vétérinaire</label>
+                    <label><input type="radio" name="role" value="employe"> Employé</label>
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            <label for="email">Adresse mail:</label>
-            <input type="email" id="email" name="email" required>
-        </div>
-        <div class="form-group">
-            <label for="password">Mot de passe:</label>
-            <div class="password-container">
-                <input type="password" id="password" name="password" required>
-                <span class="toggle-password" onclick="togglePasswordVisibility('password')">👁️</span>
+            <div class="form-group">
+                <label for="email">Adresse mail:</label>
+                <input type="email" id="email" name="email" required>
             </div>
-        </div>
-        <div class="form-group">
-            <label for="confirm-password">Confirmer le mot de passe:</label>
-            <div class="password-container">
-                <input type="password" id="confirm-password" name="confirm-password" required>
-                <span class="toggle-password" onclick="togglePasswordVisibility('confirm-password')">👁️</span>
+            <div class="form-group">
+                <label for="password">Mot de passe:</label>
+                <div class="password-container">
+                    <input type="password" id="password" name="password" required>
+                    <span class="toggle-password" onclick="togglePasswordVisibility('password')">👁️</span>
+                </div>
             </div>
-        </div>
-        <p id="password-error" class="error-message"></p>
-        <button type="submit" class="btn-submit">Valider</button>
-    </form>
+            <div class="form-group">
+                <label for="confirm-password">Confirmer le mot de passe:</label>
+                <div class="password-container">
+                    <input type="password" id="confirm-password" name="confirm-password" required>
+                    <span class="toggle-password" onclick="togglePasswordVisibility('confirm-password')">👁️</span>
+                </div>
+            </div>
+            <p id="password-error" class="error-message"></p>
+            <button type="submit" class="btn-submit">Valider</button>
+        </form>
 
-    <h2>Liste des utilisateurs</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Email</th>
-                <th>Rôle</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($users as $user): ?>
+        <h2>Liste des utilisateurs</h2>
+        <table>
+            <thead>
                 <tr>
-                    <td><?= htmlspecialchars($user['id']) ?></td>
-                    <td><?= htmlspecialchars($user['email']) ?></td>
-                    <td><?= htmlspecialchars($user['role']) ?></td>
-                    <td>
-                        <form method="post" action="" style="display:inline;">
-                            <!-- CSRF token ajouté dans chaque formulaire -->
-                            <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token'], ENT_QUOTES, 'UTF-8'); ?>">
-                            <input type="hidden" name="user_id" value="<?= htmlspecialchars($user['id']) ?>">
-                            <input type="hidden" name="edit_user" value="1">
-                            <input type="text" name="email" value="<?= htmlspecialchars($user['email']) ?>" required>
-                            <select name="role" required>
-                                <option value="veterinaire" <?= $user['role'] == 'veterinaire' ? 'selected' : '' ?>>Vétérinaire</option>
-                                <option value="employe" <?= $user['role'] == 'employe' ? 'selected' : '' ?>>Employé</option>
-                                <option value="administrateur" <?= $user['role'] == 'administrateur' ? 'selected' : '' ?>>Administrateur</option>
-                            </select>
-                            <input type="password" name="new_password" placeholder="Nouveau mot de passe">
-                            <input type="password" name="confirm_new_password" placeholder="Confirmer le nouveau mot de passe">
-                            <button type="submit">Modifier</button>
-                        </form>
-                        <form method="post" action="" style="display:inline;">
-                            <!-- CSRF token ajouté dans chaque formulaire -->
-                            <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token'], ENT_QUOTES, 'UTF-8'); ?>">
-                            <input type="hidden" name="user_id" value="<?= htmlspecialchars($user['id']) ?>">
-                            <input type="hidden" name="delete_user" value="1">
-                            <button type="submit" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?');">Supprimer</button>
-                        </form>
-                    </td>
+                   
+                    <th>Email</th>
+                    <th>Rôle</th>
+                    <th>Actions</th>
                 </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                <?php foreach ($users as $user): ?>
+                    <tr>
+                    
+                        <td><?= htmlspecialchars($user['email']) ?></td>
+                        <td><?= htmlspecialchars($user['role']) ?></td>
+                        <td>
+                            <form method="post" action="" style="display:inline;">
+                                <input type="hidden" name="user_id" value="<?= htmlspecialchars($user['id']) ?>">
+                                <input type="hidden" name="edit_user" value="1">
+                                <input type="text" name="email" value="<?= htmlspecialchars($user['email']) ?>" required>
+                                <select name="role" required>
+                                    <option value="veterinaire" <?= $user['role'] == 'veterinaire' ? 'selected' : '' ?>>Vétérinaire</option>
+                                    <option value="employe" <?= $user['role'] == 'employe' ? 'selected' : '' ?>>Employé</option>
+                                    <option value="administrateur" <?= $user['role'] == 'administrateur' ? 'selected' : '' ?>>Administrateur</option>
+                                </select>
+                                <input type="password" name="new_password" placeholder="Nouveau mot de passe">
+                                <input type="password" name="confirm_new_password" placeholder="Confirmer le nouveau mot de passe">
+                                <button type="submit">Modifier</button>
+                            </form>
+                            <form method="post" action="" style="display:inline;">
+                                <input type="hidden" name="user_id" value="<?= htmlspecialchars($user['id']) ?>">
+                                <input type="hidden" name="delete_user" value="1">
+                                <button type="submit" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?');">Supprimer</button>
+                            </form>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
     <?php require_once(__DIR__ . '/../includes/footer.php'); ?>
 </body>
 </html>

@@ -1,7 +1,6 @@
 /* Main Container */
 main {
     width: 100%;
-
     box-sizing: border-box;
 }
 
@@ -90,10 +89,20 @@ main {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    min-height: 350px; /* Taille minimale des items */
 }
 
 .service-item:hover {
     transform: scale(1.05);
+}
+
+/* Uniformiser la taille des images */
+.service-image {
+    width: 300px; /* Largeur fixe pour les images */
+    height: 300px; /* Hauteur fixe pour les images */
+    border-radius: 8px;
+    object-fit: cover; /* Garder les proportions */
+    margin-bottom: 10px;
 }
 
 .service-titre {
@@ -104,16 +113,6 @@ main {
 .service-description {
     font-size: 1rem;
     margin-top: 10px;
-}
-
-.service-image {
-    max-width: 100%;
-    height: auto;
-    border-radius: 8px;
-    margin-bottom: 10px;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
 }
 
 /* Alternate Background Colors */

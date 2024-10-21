@@ -42,7 +42,7 @@ foreach ($habitats as $habitat) {
             <?php
             // Affichage des habitats dans une liste
             foreach ($habitats as $index => $habitat) {
-                echo '<div class="habitat">';
+                echo '<div class="habitat" id="habitat-' . $index . '">';
                 echo '<div class="habitat-header" onclick="toggleHabitatDetails(' . $index . ')">';
                 echo '<img class="habitat-image" src="' . $habitat['image_path'] . '" alt="' . htmlspecialchars($habitat['nom']) . '"/>';
                 echo '<div class="habitat-overlay">';
@@ -52,8 +52,8 @@ foreach ($habitats as $habitat) {
                 echo '<div id="habitat-details-' . $index . '" class="habitat-details" style="display:none;">';
                 echo '<h2>' . htmlspecialchars($habitat['nom']) . '</h2>';
                 echo '<p>' . htmlspecialchars($habitat['description']) . '</p>';
+                echo '<div class="animal-list-header">Animaux dans cet habitat :</div>';
                 echo '<div class="animal-list">';
-                echo '<h3>Animaux dans cet habitat :</h3>';
                 foreach ($animalsByHabitat[$habitat['nom']] as $animal) {
                     echo '<div class="animal-item">';
                     echo '<img src="' . ($animal['image_path'] ?: 'default-animal.jpg') . '" alt="' . htmlspecialchars($animal['nom']) . '" class="animal-image"/>';
@@ -69,10 +69,17 @@ foreach ($habitats as $habitat) {
 </main>
 
 <script>
+// Fonction pour basculer les détails des habitats
 function toggleHabitatDetails(index) {
+    const habitat = document.getElementById(`habitat-${index}`);
     const details = document.getElementById(`habitat-details-${index}`);
-    if (details) {
-        details.style.display = details.style.display === 'none' ? 'block' : 'none';
+    
+    if (details.style.display === 'none') {
+        details.style.display = 'block';
+        habitat.classList.add('expanded');  // Ajouter la classe expanded
+    } else {
+        details.style.display = 'none';
+        habitat.classList.remove('expanded');  // Supprimer la classe expanded
     }
 }
 </script>

@@ -1,117 +1,165 @@
-
-
+/* Section d'introduction */
 .intro {
     background-color: #556B2F;
     color: #F7EDD9;
-    padding: 20px;
+    padding: 40px 20px;
     text-align: center;
-    border-radius: 0;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    margin: 0;
-    width: 100%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .intro h1 {
     margin: 0;
-    font-size: 36px;
+    font-size: 48px;
     font-weight: bold;
 }
 
 .intro p {
-    margin: 10px 0 0;
-    font-size: 18px;
+    margin: 15px 0 0;
+    font-size: 20px;
+    line-height: 1.6;
+    max-width: 800px;
+    margin: 0 auto;
 }
 
+/* Section principale */
 main {
     width: 100%;
-    margin: 0;
+    margin: 0 0;
     padding: 0;
 }
 
+/* Conteneurs pour les animaux et habitats */
 .animaux, .habitats {
-    width: 100%;
-    margin: 0;
-    padding: 0;
     display: flex;
     flex-direction: column;
-    gap: 0;
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
 }
 
 .animal, .habitat {
-    width: 100%;
-    padding: 15px;
-    text-align: left;
-    box-sizing: border-box;
-    border-radius: 0;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #F7EDD9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+/* Styles pour les titres et textes */
 .animal h3, .habitat h3 {
-    margin: 0 0 10px;
-    font-size: 24px;
+    margin: 0;
+    font-size: 28px;
     color: #2B390D;
 }
 
 .animal p, .habitat p {
-    margin: 5px 0 10px;
+    margin: 5px 0;
     font-size: 18px;
-    color: #2B390D;
+    color: #4A5A25;
 }
 
-.animal img {
-    max-width: 100%;
-    border-radius: 0;
-    margin-top: 10px;
+/* Styles des images */
+.animal img, .habitat img {
+    max-width: 150px;
+    max-height: 150px;
+    border-radius: 8px;
+    object-fit: cover;
+    transition: transform 0.3s ease, filter 0.3s ease;
 }
 
-.animal:nth-child(3n+1) {
-    background-color: #B6BE64;
+/* Effet d'éclaircissement et d'agrandissement uniquement au survol des images */
+.animal img:hover, .habitat img:hover {
+    transform: scale(1.05);
+    filter: brightness(1.2);
 }
 
-.animal:nth-child(3n+2) {
-    background-color: #5563D4;
-}
-
-.animal:nth-child(3n+3) {
+/* Ajustement des couleurs en alternance */
+.animal:nth-child(odd), .habitat:nth-child(odd) {
     background-color: #F7EDD9;
 }
 
-.habitat:nth-child(3n+1) {
-    background-color: #F7EDD9;
-}
-
-.habitat:nth-child(3n+2) {
+.animal:nth-child(even), .habitat:nth-child(even) {
     background-color: #B6BE64;
 }
 
-.habitat:nth-child(3n+3) {
-    background-color: #5563D4;
-}
-
+/* Section des animaux dans les habitats */
 .animals-in-habitat {
-    padding-left: 20px;
-    border-top: 1px solid #2B390D;
-    margin-top: 10px;
-    padding-top: 10px;
+    padding-top: 20px;
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 20px;
 }
 
 .animal-in-habitat {
-    margin: 5px 0;
+    display: flex;
+    align-items: center;
 }
 
 .animal-in-habitat img {
-    width: 50px;
-    height: 50px;
+    width: 80px;
+    height: 80px;
     border-radius: 5px;
     object-fit: cover;
     margin-right: 10px;
-    transition: transform 0.3s;
+    transition: transform 0.3s ease, filter 0.3s ease;
 }
 
+/* Effet d'éclaircissement et d'agrandissement au survol des petites images */
 .animal-in-habitat img:hover {
-    transform: scale(1.1);
+    transform: scale(1.05);
+    filter: brightness(1.2);
+}
+
+/* Responsiveness - Pour les écrans de taille moyenne */
+@media (max-width: 992px) {
+    .animal, .habitat {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+    }
+
+    .animal img, .habitat img {
+        max-width: 120px;
+        max-height: 120px;
+    }
+
+    .animal h3, .habitat h3 {
+        font-size: 24px;
+    }
+}
+
+/* Responsiveness - Pour les petits écrans et les mobiles */
+@media (max-width: 600px) {
+    .animal, .habitat {
+        padding: 15px;
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* Aligner verticalement au centre */
+        text-align: center; /* Centrer le texte également */
+    }
+
+    .animal img, .habitat img {
+        max-width: 100px;
+        max-height: 100px;
+        margin-bottom: 10px; /* Ajouter un espace entre l'image et le texte */
+    }
+
+    .animal h3, .habitat h3 {
+        font-size: 20px;
+    }
+
+    .intro h1 {
+        font-size: 36px;
+    }
+
+    .intro p {
+        font-size: 18px;
+        padding: 0 10px;
+    }
+    .animals-in-habitat {
+        justify-content: center; /* Centrer les animaux dans l'habitat */
+    }
 }
