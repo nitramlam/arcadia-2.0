@@ -1,8 +1,8 @@
 <?php
 // Paramètres de connexion
 $servername = "arcadia-db"; // Nom du service MySQL dans Docker (nom du conteneur)
-$username = "arcadia";
-$password = "arcadia";
+$username = "KeeperAdmin";
+$password = "WildLifeSecure33!";
 $dbname = "arcadia";
 
 // Créer la connexion

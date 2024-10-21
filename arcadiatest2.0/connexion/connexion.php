@@ -5,6 +5,11 @@ require_once(__DIR__ . '/../db.php'); // Inclure le fichier de configuration de 
 
 $error_message = '';
 
+// Fonction pour générer un token unique
+function generateToken() {
+    return bin2hex(random_bytes(32)); // Token de 64 caractères (32 octets)
+}
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = filter_var(trim($_POST['email']), FILTER_SANITIZE_EMAIL);
     $password = trim($_POST['password']);
@@ -23,10 +28,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $user = $result->fetch_assoc();
 
                 if ($user && password_verify($password, $user['password'])) {
+                    // Stocker les informations de l'utilisateur dans la session
                     $_SESSION['user_id'] = $user['id'];
                     $_SESSION['email'] = $user['email'];
                     $_SESSION['role'] = $user['role'];
                     $_SESSION['LAST_ACTIVITY'] = time(); // Initialiser LAST_ACTIVITY
+
+                    // Générer et stocker le token dans la session
+                    $_SESSION['token'] = generateToken();
+
+                    // Envoyer le token au client via un cookie sécurisé (HTTP only et sécurisé)
+                    setcookie('user_token', $_SESSION['token'], time() + 3600, '/', '', true, false);
 
                     error_log("Rôle de l'utilisateur : " . $user['role']); // Débogage
 

@@ -3,11 +3,22 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
-if (!isset($_SESSION['email']) || !isset($_SESSION['role'])) {
-    error_log("Redirection vers connexion.php : utilisateur non authentifié");
+// Vérifier que l'utilisateur est authentifié et que le token est présent
+if (!isset($_SESSION['email']) || !isset($_SESSION['role']) || !isset($_SESSION['token']) || !isset($_COOKIE['user_token'])) {
+    error_log("Redirection vers connexion.php : utilisateur non authentifié ou token manquant");
     header("Location: /connexion/connexion.php");
     exit();
-} else {
-    error_log("Utilisateur authentifié : " . $_SESSION['email'] . " avec le rôle " . $_SESSION['role']);
 }
+
+// Vérifier que le token envoyé par le client correspond à celui de la session
+if (!hash_equals($_SESSION['token'], $_COOKIE['user_token'])) {
+    error_log("Token invalide, redirection vers connexion.php");
+    session_unset();  // Détruire la session
+    session_destroy();
+    header("Location: /connexion/connexion.php");
+    exit();
+}
+
+// Si l'utilisateur est authentifié et que le token est valide
+error_log("Utilisateur authentifié : " . $_SESSION['email'] . " avec le rôle " . $_SESSION['role']);
 ?>

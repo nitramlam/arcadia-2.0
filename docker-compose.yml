@@ -17,9 +17,9 @@ services:
     image: mysql:8
     container_name: arcadia-db
     environment:
-      MYSQL_ROOT_PASSWORD: arcadia
-      MYSQL_USER: arcadia
-      MYSQL_PASSWORD: arcadia
+      MYSQL_ROOT_PASSWORD: ArcadiaZoo33! 
+      MYSQL_USER: KeeperAdmin
+      MYSQL_PASSWORD: WildLifeSecure33!
       MYSQL_DATABASE: arcadia
     volumes:
       - db_data:/var/lib/mysql
