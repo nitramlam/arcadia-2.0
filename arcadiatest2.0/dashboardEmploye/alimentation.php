@@ -10,8 +10,18 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'employe') {
     exit();
 }
 
+// Générer un token CSRF s'il n'existe pas déjà dans la session
+if (!isset($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
+
 // Gestion des soumissions des formulaires
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Vérification du token CSRF
+    if (!isset($_POST['csrf_token']) || !hash_equals($_SESSION['csrf_token'], $_POST['csrf_token'])) {
+        die('Échec de la validation CSRF.');
+    }
+
     if (isset($_POST['update_animal'])) {
         // Mettre à jour les informations de passage de l'employé
         $animal_id = $_POST['animal_id'];
@@ -47,6 +57,8 @@ $animals = $animalQuery->fetch_all(MYSQLI_ASSOC);
                     <h3><?php echo htmlspecialchars($animal['nom'] ?? ''); ?></h3>
                     <button class="edit-toggle">✏️</button>
                     <form method="POST" class="animal-form" style="display: none;">
+                        <!-- Ajout du token CSRF -->
+                        <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token'], ENT_QUOTES, 'UTF-8'); ?>">
                         <input type="hidden" name="animal_id" value="<?php echo htmlspecialchars($animal['animal_id'] ?? ''); ?>">
                         <label>Date et Heure de Passage: <input type="datetime-local" name="date_heure_passage_employe" value="<?php echo htmlspecialchars($animal['date_heure_passage_employe'] ?? ''); ?>" required></label>
                         <label>Grammage Donné: <input type="number" step="0.01" name="grammage_donne" value="<?php echo htmlspecialchars($animal['grammage_donne'] ?? ''); ?>" required></label>

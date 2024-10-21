@@ -10,8 +10,18 @@ if (!isset($_SESSION['role'])) {
     exit();
 }
 
+// Générer un token CSRF s'il n'existe pas déjà dans la session
+if (!isset($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
+
 // Gestion des soumissions des formulaires
 if ($conn && $_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Vérification du token CSRF
+    if (!isset($_POST['csrf_token']) || !hash_equals($_SESSION['csrf_token'], $_POST['csrf_token'])) {
+        die('Échec de la validation CSRF.');
+    }
+
     if (isset($_POST['add_service'])) {
         $nom = $_POST['nom'];
         $description = $_POST['description'];
@@ -91,6 +101,8 @@ $horaires = $horaireQuery->fetch_assoc();
             <p><?= nl2br(htmlspecialchars($service['description'], ENT_QUOTES, 'UTF-8')); ?></p>
 
             <form id="form-<?= $service['service_id']; ?>" class="hidden" method="POST" enctype="multipart/form-data">
+                <!-- Ajout du token CSRF -->
+                <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token'], ENT_QUOTES, 'UTF-8'); ?>">
                 <input type="hidden" name="service_id" value="<?= htmlspecialchars($service['service_id'], ENT_QUOTES, 'UTF-8'); ?>">
                 <input type="text" name="nom" value="<?= htmlspecialchars($service['nom'], ENT_QUOTES, 'UTF-8'); ?>" required>
                 <textarea name="description" required><?= htmlspecialchars($service['description'], ENT_QUOTES, 'UTF-8'); ?></textarea>
@@ -103,6 +115,8 @@ $horaires = $horaireQuery->fetch_assoc();
 
     <h2>Ajouter un Service</h2>
     <form method="POST" enctype="multipart/form-data">
+        <!-- Ajout du token CSRF -->
+        <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token'], ENT_QUOTES, 'UTF-8'); ?>">
         <input type="text" name="nom" placeholder="Nom" required>
         <textarea name="description" placeholder="Description" required></textarea>
         <label>Image: <input type="file" name="image" accept="image/*"></label>
@@ -113,6 +127,8 @@ $horaires = $horaireQuery->fetch_assoc();
 <div class="horaires">
     <h2>Horaires d'ouverture</h2>
     <form method="POST">
+        <!-- Ajout du token CSRF -->
+        <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token'], ENT_QUOTES, 'UTF-8'); ?>">
         <label for="ouverture">Ouverture :</label>
         <input type="time" id="ouverture" name="ouverture" value="<?= htmlspecialchars($horaires['ouverture'], ENT_QUOTES, 'UTF-8'); ?>" required>
         <label for="fermeture">Fermeture :</label>

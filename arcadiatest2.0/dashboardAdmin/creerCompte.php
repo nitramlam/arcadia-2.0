@@ -16,6 +16,11 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'administrateur') {
 
 // Gestion des requêtes POST
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Vérifier le token CSRF
+    if (!isset($_POST['csrf_token']) || !hash_equals($_SESSION['csrf_token'], $_POST['csrf_token'])) {
+        die('Échec de la validation CSRF.');
+    }
+
     if (isset($_POST['delete_user'])) {
         // Suppression d'un utilisateur
         $user_id = intval($_POST['user_id']);
@@ -150,6 +155,9 @@ if ($result) {
     <?php endif; ?>
 
     <form method="post" action="" onsubmit="return validateForm();">
+        <!-- CSRF token ajouté dans chaque formulaire -->
+        <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token'], ENT_QUOTES, 'UTF-8'); ?>">
+        
         <div class="form-group">
             <label for="role">Créer un compte:</label>
             <div class="role-options">
@@ -197,6 +205,8 @@ if ($result) {
                     <td><?= htmlspecialchars($user['role']) ?></td>
                     <td>
                         <form method="post" action="" style="display:inline;">
+                            <!-- CSRF token ajouté dans chaque formulaire -->
+                            <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token'], ENT_QUOTES, 'UTF-8'); ?>">
                             <input type="hidden" name="user_id" value="<?= htmlspecialchars($user['id']) ?>">
                             <input type="hidden" name="edit_user" value="1">
                             <input type="text" name="email" value="<?= htmlspecialchars($user['email']) ?>" required>
@@ -210,6 +220,8 @@ if ($result) {
                             <button type="submit">Modifier</button>
                         </form>
                         <form method="post" action="" style="display:inline;">
+                            <!-- CSRF token ajouté dans chaque formulaire -->
+                            <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token'], ENT_QUOTES, 'UTF-8'); ?>">
                             <input type="hidden" name="user_id" value="<?= htmlspecialchars($user['id']) ?>">
                             <input type="hidden" name="delete_user" value="1">
                             <button type="submit" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?');">Supprimer</button>

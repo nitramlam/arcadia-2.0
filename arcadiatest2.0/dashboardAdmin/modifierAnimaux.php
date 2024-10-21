@@ -13,6 +13,11 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'administrateur') {
     exit();
 }
 
+// Générer un token CSRF s'il n'existe pas déjà dans la session
+if (!isset($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
+
 // Fonction pour gérer l'upload d'image
 function uploadImage($file) {
     if (isset($file) && $file['error'] == 0) {
@@ -29,18 +34,15 @@ function uploadImage($file) {
 }
 
 // Fonction pour ajouter ou mettre à jour l'animal dans MongoDB
-// Fonction pour ajouter ou mettre à jour l'animal dans MongoDB
 function syncAnimalToMongoDB($animalId, $nom) {
     global $manager;
 
-    // Mise à jour du document dans MongoDB
     $bulk = new MongoDB\Driver\BulkWrite;
     $filter = ['animal_id' => (string)$animalId];
     $update = [
         '$set' => [
             'animal_id' => (string)$animalId,
             'animal_name' => $nom,
-            // On continue à utiliser le view_count mais sans jamais l'afficher
             'view_count' => 0  // Par défaut, on ne l'affiche pas
         ]
     ];
@@ -52,7 +54,6 @@ function syncAnimalToMongoDB($animalId, $nom) {
 function deleteAnimalFromMongoDB($animalId) {
     global $manager;
 
-    // Suppression du document dans MongoDB
     $bulk = new MongoDB\Driver\BulkWrite;
     $filter = ['animal_id' => (string)$animalId];
     $bulk->delete($filter);
@@ -62,9 +63,6 @@ function deleteAnimalFromMongoDB($animalId) {
 // Fonction pour créer une page personnalisée pour chaque animal
 function createAnimalPage($animalId) {
     global $conn;
-    
-    // Connexion à MongoDB
-    $manager = new MongoDB\Driver\Manager("mongodb+srv://martinlamalle:456123Fx37!@arcadia.t7ei6.mongodb.net/?retryWrites=true&w=majority&appName=arcadia");
 
     $stmt = $conn->prepare("SELECT * FROM animal WHERE animal_id = ?");
     $stmt->bind_param("i", $animalId);
@@ -145,6 +143,11 @@ PHP;
 
 // Gestion des soumissions des formulaires
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Vérification du token CSRF
+    if (!isset($_POST['csrf_token']) || !hash_equals($_SESSION['csrf_token'], $_POST['csrf_token'])) {
+        die('Échec de la validation CSRF.');
+    }
+
     if (isset($_POST['add_animal'])) {
         // Ajouter un nouvel animal
         $nom = $_POST['nom'];
@@ -246,6 +249,8 @@ $animals = $animalQuery->fetch_all(MYSQLI_ASSOC);
                     </div>
                     <button class="edit-toggle">✏️</button>
                     <form method="POST" class="animal-form" style="display: none;" enctype="multipart/form-data">
+                        <!-- Ajout du token CSRF -->
+                        <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token'], ENT_QUOTES, 'UTF-8'); ?>">
                         <input type="hidden" name="animal_id" value="<?php echo htmlspecialchars($animal['animal_id'] ?? ''); ?>">
                         <label>Nom: <input type="text" name="nom" value="<?php echo htmlspecialchars($animal['nom'] ?? ''); ?>" required></label>
                         <label>Description: <textarea name="description" required><?php echo htmlspecialchars($animal['description'] ?? ''); ?></textarea></label>
@@ -266,6 +271,8 @@ $animals = $animalQuery->fetch_all(MYSQLI_ASSOC);
         <!-- Formulaire d'ajout d'un nouvel animal -->
         <button class="add-animal" onclick="openAddForm()">Ajouter un animal</button>
         <form method="POST" class="add-animal-form" id="add-animal-form" style="display: none;" enctype="multipart/form-data">
+            <!-- Ajout du token CSRF -->
+            <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token'], ENT_QUOTES, 'UTF-8'); ?>">
             <label>Nom: <input type="text" name="nom" required></label>
             <label>Description: <textarea name="description" required></textarea></label>
             <label>Poids: <input type="number" step="0.01" name="poids" required></label>
@@ -308,3 +315,5 @@ $animals = $animalQuery->fetch_all(MYSQLI_ASSOC);
             document.getElementById('add-animal-form').style.display = 'none';
         }
     </script>
+</body>
+</html>

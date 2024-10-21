@@ -10,9 +10,18 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'veterinaire') {
     exit();
 }
 
-// Connexion à la base de données établie via db.php
+// Générer un token CSRF s'il n'existe pas déjà dans la session
+if (!isset($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
+
 // Gestion des soumissions des formulaires
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Vérification du token CSRF
+    if (!isset($_POST['csrf_token']) || !hash_equals($_SESSION['csrf_token'], $_POST['csrf_token'])) {
+        die('Échec de la validation CSRF.');
+    }
+
     if (isset($_POST['update_habitat'])) {
         // Mettre à jour le commentaire de propreté de l'habitat
         $habitat_id = $_POST['habitat_id'];
@@ -64,6 +73,8 @@ $animals = $animalQuery->fetch_all(MYSQLI_ASSOC);
                     
                     <button class="edit-toggle">✏️</button>
                     <form method="POST" class="habitat-form" style="display: none;">
+                        <!-- Ajout du token CSRF -->
+                        <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token'], ENT_QUOTES, 'UTF-8'); ?>">
                         <input type="hidden" name="habitat_id" value="<?php echo htmlspecialchars($habitat['habitat_id'] ?? ''); ?>">
                         <label>Commentaire sur la propreté: <textarea name="commentaire_habitat" required><?php echo htmlspecialchars($habitat['commentaire_habitat'] ?? ''); ?></textarea></label>
                         <button type="submit" name="update_habitat" class="edit-btn">Mettre à jour</button>

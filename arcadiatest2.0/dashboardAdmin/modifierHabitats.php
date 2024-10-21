@@ -9,6 +9,12 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'administrateur') {
     header("Location: /connexion/connexion.php");
     exit();
 }
+
+// Générer un token CSRF s'il n'existe pas déjà dans la session
+if (!isset($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
+
 // Fonction pour gérer l'upload d'image
 function uploadImage($file) {
     if (isset($file) && $file['error'] == 0) {
@@ -26,6 +32,11 @@ function uploadImage($file) {
 
 // Gestion des soumissions des formulaires
 if ($conn && $_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Vérification du token CSRF
+    if (!isset($_POST['csrf_token']) || !hash_equals($_SESSION['csrf_token'], $_POST['csrf_token'])) {
+        die('Échec de la validation CSRF.');
+    }
+
     if (isset($_POST['add_habitat'])) {
         // Ajouter un nouvel habitat
         $nom = $_POST['nom'];
@@ -43,7 +54,8 @@ if ($conn && $_SERVER['REQUEST_METHOD'] === 'POST') {
         $habitat_id = $_POST['habitat_id'];
         $nom = $_POST['nom'];
         $description = $_POST['description'];
-        $commentaire_habitat = $_POST['commentaire_habitat'];
+        $commentaire_habitat = isset($_POST['commentaire_habitat']) ? $_POST['commentaire_habitat'] : null; 
+        
 
         // Vérifier s'il y a une nouvelle image téléchargée
         $imagePath = uploadImage($_FILES['image']);
@@ -96,6 +108,7 @@ $habitats = $habitatQuery->fetch_all(MYSQLI_ASSOC);
 
                     <button class="edit-toggle" data-id="<?php echo htmlspecialchars($habitat['habitat_id']); ?>">✏️ Modifier</button>
                     <form method="POST" class="habitat-form" id="edit-form-<?php echo htmlspecialchars($habitat['habitat_id']); ?>" style="display: none;" enctype="multipart/form-data">
+                        <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token'], ENT_QUOTES, 'UTF-8'); ?>">
                         <input type="hidden" name="habitat_id" value="<?php echo htmlspecialchars($habitat['habitat_id']); ?>">
                         <label>Nom: <input type="text" name="nom" value="<?php echo htmlspecialchars($habitat['nom']); ?>" required></label>
                         <label>Description: <textarea name="description" required><?php echo htmlspecialchars($habitat['description']); ?></textarea></label>
@@ -103,6 +116,7 @@ $habitats = $habitatQuery->fetch_all(MYSQLI_ASSOC);
                         <button type="submit" name="edit_habitat" class="edit-btn">Modifier</button>
                     </form>
                     <form method="POST" class="delete-form" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet habitat ?');">
+                        <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token'], ENT_QUOTES, 'UTF-8'); ?>">
                         <input type="hidden" name="habitat_id" value="<?php echo htmlspecialchars($habitat['habitat_id']); ?>">
                         <button type="submit" name="delete_habitat" class="delete-btn">Supprimer</button>
                     </form>
@@ -113,6 +127,7 @@ $habitats = $habitatQuery->fetch_all(MYSQLI_ASSOC);
         <!-- Formulaire d'ajout d'un nouvel habitat -->
         <button class="add-habitat" onclick="openAddForm()">Ajouter un habitat</button>
         <form method="POST" class="add-habitat-form" id="add-habitat-form" style="display: none;" enctype="multipart/form-data">
+            <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token'], ENT_QUOTES, 'UTF-8'); ?>">
             <label>Nom: <input type="text" name="nom" required></label>
             <label>Description: <textarea name="description" required></textarea></label>
             <label>Image: <input type="file" name="image" accept="image/*"></label>

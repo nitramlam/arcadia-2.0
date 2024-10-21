@@ -10,8 +10,18 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'veterinaire') {
     exit();
 }
 
+// Générer un token CSRF s'il n'existe pas déjà dans la session
+if (!isset($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
+
 // Gestion des soumissions des formulaires
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Vérification du token CSRF
+    if (!isset($_POST['csrf_token']) || !hash_equals($_SESSION['csrf_token'], $_POST['csrf_token'])) {
+        die('Échec de la validation CSRF.');
+    }
+
     if (isset($_POST['update_animal'])) {
         // Mettre à jour les informations vétérinaires de l'animal
         $animal_id = $_POST['animal_id'];
@@ -119,6 +129,8 @@ $animals = $animalQuery->fetch_all(MYSQLI_ASSOC);
                     <h3><?= htmlspecialchars($animal['nom'] ?? ''); ?></h3>
                     <button class="edit-toggle">✏️</button>
                     <form method="POST" class="animal-form" style="display: none;">
+                        <!-- Ajout du token CSRF -->
+                        <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token'], ENT_QUOTES, 'UTF-8'); ?>">
                         <input type="hidden" name="animal_id" value="<?= htmlspecialchars($animal['animal_id'] ?? ''); ?>">
                         <label>État général: <input type="text" name="etat_general" value="<?= htmlspecialchars($animal['etat_general'] ?? ''); ?>" required></label>
                         <label>Nourriture proposée: <input type="text" name="regime" value="<?= htmlspecialchars($animal['regime'] ?? ''); ?>" required></label>

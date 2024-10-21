@@ -19,6 +19,11 @@ if (!hash_equals($_SESSION['token'], $_COOKIE['user_token'])) {
     exit();
 }
 
+// Générer un token CSRF si ce n'est pas déjà fait dans la session
+if (!isset($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32)); // Génère un token unique de 64 caractères
+}
+
 // Si l'utilisateur est authentifié et que le token est valide
 error_log("Utilisateur authentifié : " . $_SESSION['email'] . " avec le rôle " . $_SESSION['role']);
 ?>
