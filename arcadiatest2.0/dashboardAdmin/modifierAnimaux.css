@@ -1,8 +1,7 @@
 /* Style global pour le body */
 body {
-    background-color: #6B8E23; /* Fond de la page */
+    background-color: #8B4513; /* Fond de la page */
     margin: 0;
-
 }
 
 /* Conteneur principal */
@@ -16,7 +15,7 @@ main {
 .intro {
     text-align: center;
     margin-bottom: 20px;
-    color: #2F3E19;
+    color: #F7EED9;
 }
 
 /* Liste des animaux */
@@ -29,6 +28,7 @@ main {
 /* Cartes des animaux */
 .animal-card {
     background-color: #F7EDD9;
+    color: #2B390D;
     border: 1px solid #ddd;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -64,7 +64,7 @@ main {
     margin-top: 10px;
     padding: 10px;
     background-color: #007BFF;
-    color: white;
+    color: #F7EED9;
     border: none;
     border-radius: 4px;
     cursor: pointer;
@@ -100,7 +100,7 @@ main {
 
 .animal-form button {
     padding: 10px 20px;
-    background-color: #28a745;
+    background-color: #2B390D;
     color: white;
     border: none;
     border-radius: 4px;
@@ -118,7 +118,7 @@ main {
     display: block;
     margin: 20px auto;
     padding: 10px 20px;
-    background-color: #28a745;
+    background-color: #2B390D;
     color: white;
     border: none;
     border-radius: 4px;
@@ -130,7 +130,7 @@ main {
 .add-animal-form {
     max-width: 600px;
     margin: 20px auto;
-    background-color: white;
+    background-color: #F7EDD9;
     padding: 20px;
     border: 1px solid #ddd;
     border-radius: 8px;
@@ -153,8 +153,8 @@ main {
 
 .add-animal-form button {
     padding: 10px 20px;
-    background-color: #28a745;
-    color: white;
+    background-color: #2B390D;
+    color: #F7EDD9;
     border: none;
     border-radius: 4px;
     cursor: pointer;
@@ -162,7 +162,7 @@ main {
 }
 
 .add-animal-form button[type="button"] {
-    background-color: #dc3545;
+    background-color: #8B4513;
     margin-left: 10px;
 }
 

@@ -1,9 +1,6 @@
-
-
 /* Styles de base */
 body {
-
-    background-color: #f4f4f4;
+    background-color: #F7EED9;
     margin: 0;
     padding: 0;
 }
@@ -12,23 +9,9 @@ main {
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
-    background-color: #fff;
+    background-color: #2B390D;
+    color: #F7EED9;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-/* En-tête de la section */
-.introHabitats {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.titreHabitats {
-    color: #333;
-}
-
-.introHabitats p {
-    color: #666;
-    font-size: 1.1em;
 }
 
 /* Liste des habitats */
@@ -40,12 +23,12 @@ main {
 
 .habitat-card {
     flex: 1 1 calc(33.333% - 40px);
-    background-color: #fff;
-    border: 1px solid #ddd;
+    background-color: #F7EED9;
+    color: #2B390D;
     border-radius: 8px;
     padding: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    position: relative;
+    margin-bottom: 20px;
 }
 
 .habitat-card h2 {
@@ -54,19 +37,11 @@ main {
 }
 
 .habitat-card p {
-    color: #555;
-}
-
-.habitat-card ul {
-    padding-left: 20px;
-}
-
-.habitat-card ul li {
-    margin-bottom: 5px;
+    color: #2B390D;
 }
 
 .habitat-card .view-comment-btn {
-    background-color: #007bff;
+    background-color: #167BFF;
     color: #fff;
     border: none;
     border-radius: 4px;
@@ -76,15 +51,14 @@ main {
 }
 
 .habitat-card .view-comment-btn:hover {
-    background-color: #0056b3;
+    background-color: #167bff9c;
 }
 
 .habitat-card .commentaire-habitat {
     margin-top: 10px;
     background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    padding: 10px;
     border-radius: 4px;
+    padding: 10px;
 }
 
 /* Formulaires */
@@ -96,7 +70,6 @@ main {
 .add-form,
 .edit-form {
     background-color: #fff;
-    border: 1px solid #ddd;
     border-radius: 8px;
     padding: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -106,7 +79,7 @@ main {
 .edit-form label {
     display: block;
     margin-bottom: 10px;
-    color: #555;
+    color: #2B390D;
 }
 
 .add-form input[type="text"],
@@ -115,79 +88,43 @@ main {
 .edit-form textarea {
     width: 100%;
     padding: 10px;
-    border: 1px solid #ddd;
     border-radius: 4px;
-    box-sizing: border-box;
 }
 
-.add-form textarea,
-.edit-form textarea {
-    height: 80px;
-}
 
-.add-form button,
-.edit-form button {
-    background-color: #28a745;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    padding: 10px 20px;
-    cursor: pointer;
-    margin-top: 10px;
-}
 
 .add-form button:hover,
 .edit-form button:hover {
     background-color: #218838;
 }
 
-/* Boutons */
-.edit-btn,
 .delete-form button {
-    background-color: #ffc107;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
+    background-color: #8B4513;
+    color: #F7EED9;
     padding: 5px 10px;
+    border-radius: 4px;
     cursor: pointer;
-    margin-top: 10px;
-}
-
-.edit-btn:hover {
-    background-color: #e0a800;
-}
-
-.delete-form button {
-    background-color: #dc3545;
+    margin: 2px;
 }
 
 .delete-form button:hover {
-    background-color: #c82333;
+    background-color: #8b451399;
 }
 
-.add-btn {
-    background-color: #4CAF50;
-    border-radius: 50%;
-    padding: 10px 15px;
-    font-size: 2em;
-    line-height: 1em;
-}
-
-.add-btn:hover {
-    background-color: #45a049;
-}
-
+/* Boutons d'ajout */
 .add-habitat {
+    background-color: #F7EED9;
     margin-top: 40px;
     text-align: center;
 }
+.add-habitat-form{
+    background-color: #6B8E23;
+}
 
 .add-habitat button {
-    font-size: 2em;
-    background-color: #4CAF50;
+    font-size: 1.5em;
     border-radius: 50%;
     padding: 10px 20px;
-    border: none;
     cursor: pointer;
     color: white;
 }
@@ -195,51 +132,48 @@ main {
 .add-habitat button:hover {
     background-color: #45a049;
 }
+/* Media Queries pour les très petits écrans */
+@media (max-width: 480px) {
+    .habitat-list {
+        flex-direction: column;
+    }
 
-.validate-btn {
-    background-color: #8b0000;
-    color: white;
-    padding: 15px 30px;
-    font-size: 1.2em;
-    border-radius: 5px;
-    text-align: center;
-    margin: 20px auto;
-    display: block;
-}
+    .habitat-card {
+        padding: 10px;
+        margin-bottom: 10px;
+    }
 
-.validate-btn:hover {
-    background-color: #700000;
-}
+    /* Formulaires */
+    form label {
+        font-size: 0.8em; /* Réduction de la taille du texte pour les formulaires */
+    }
 
-form {
-    display: flex;
-    flex-direction: column;
-}
+    form input[type="text"],
+    form textarea {
+        font-size: 0.8em;
+        padding: 6px; /* Réduction de la taille des champs de texte */
+    }
 
-form label {
-    font-weight: bold;
-}
+    form button {
+        font-size: 0.8em;
+        padding: 6px 12px; /* Réduction de la taille des boutons */
+    }
 
-form button {
-    align-self: flex-start;
-}
+    /* Bouton "Ajouter un habitat" */
+    .add-habitat button {
+        font-size: 1.2em; /* Réduction de la taille du bouton */
+        padding: 10px 15px;
+    }
 
-.animal-card {
-    max-width: 300px; /* Ajustez cette largeur selon vos besoins */
-    margin-bottom: 20px;
-    border: 1px solid #ddd;
-    background-color: #ffffff;
-    padding: 20px;
-    border-radius: 10px;
-    overflow: hidden; /* Pour cacher toute partie de l'image qui dépasse */
-    text-align: center; /* Centrer le contenu à l'intérieur */
-}
+    /* Bouton "Valider" */
+    .validate-btn {
+        font-size: 0.9em;
+        padding: 10px 15px;
+    }
 
-.animal-card img {
-    width: 100px; /* Définir une largeur fixe pour l'image */
-    height: 100px; /* Définir une hauteur fixe pour l'image */
-    object-fit: cover; /* S'assurer que l'image couvre entièrement l'espace sans distorsion */
-    border-radius: 5px;
-    display: block;
-    margin: 0 auto 10px; /* Centrer l'image horizontalement et ajouter une marge en bas */
+    /* Ajuster la taille des images pour très petits écrans */
+    .habitat-card img {
+        width: 80px;
+        height: 80px;
+    }
 }

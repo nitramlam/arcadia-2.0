@@ -1,9 +1,9 @@
-/* veterinaire_habitats.css */
+
 
 /* Styles de base */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+
+    background-color: #2B390D;
     margin: 0;
     padding: 0;
 }
@@ -12,7 +12,7 @@ main {
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
-    background-color: #fff;
+    background-color: #F7EED9;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
@@ -23,11 +23,11 @@ main {
 }
 
 .intro h2 {
-    color: #333;
+    color: #2B390D;
 }
 
 .intro p {
-    color: #666;
+    color: #2B390D;
     font-size: 1.1em;
 }
 
@@ -40,7 +40,9 @@ main {
 
 .habitat-card {
     flex: 1 1 calc(33.333% - 40px);
-    background-color: #fff;
+    background-color: #2B390D;
+    color: #F7EED9;
+
     border: 1px solid #ddd;
     border-radius: 8px;
     padding: 20px;
@@ -50,7 +52,7 @@ main {
 
 .habitat-card h3 {
     margin-top: 0;
-    color: #333;
+    color: #F7EED9;
 }
 
 .habitat-card img.habitat-image {
@@ -61,7 +63,7 @@ main {
 }
 
 .habitat-card p {
-    color: #555;
+    color: #F7EED9;
 }
 
 .habitat-card ul {
@@ -81,7 +83,7 @@ main {
 .habitat-form label {
     display: block;
     margin-bottom: 10px;
-    color: #555;
+    color: #2B390D;
 }
 
 .habitat-form textarea {
@@ -94,8 +96,8 @@ main {
 }
 
 .habitat-form button.edit-btn {
-    background-color: #28a745;
-    color: #fff;
+    background-color: #9ACD33;
+    color: #F7EED9;
     border: none;
     border-radius: 4px;
     padding: 10px 20px;
@@ -104,7 +106,7 @@ main {
 }
 
 .habitat-form button.edit-btn:hover {
-    background-color: #218838;
+    background-color: #9acd33be;
 }
 
 /* Responsive styles */

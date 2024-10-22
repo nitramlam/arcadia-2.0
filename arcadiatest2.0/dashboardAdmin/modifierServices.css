@@ -1,13 +1,14 @@
 body {
 
-    background-color: #f5f5dc; /* Couleur de fond beige */
-    color: #333;
+    background-color: #2B390D; /* Couleur de fond beige */
+
     margin: 0;
     padding: 0;
 }
 
 .services, .horaires {
-    background-color: #edf2e0; /* Couleur de fond verte claire */
+    background-color: #F7EED9;
+    color: #2B390D; /* Couleur de fond verte claire */
     margin: 20px auto;
     padding: 20px;
     border-radius: 10px;
@@ -28,7 +29,8 @@ h2 {
 }
 
 .service, .horaires form {
-    background-color: #fafaf0; /* Couleur de fond très claire */
+    background-color: #fafaf0;
+
     padding: 15px;
     border-radius: 10px;
     margin-bottom: 20px;
@@ -42,7 +44,7 @@ h2 {
 }
 
 .service p {
-    color: #333;
+    color: #2B390D;
     font-size: 16px;
     line-height: 1.5;
 }
@@ -56,7 +58,7 @@ h2 {
 
 .service button, .horaires button {
     background-color: #627e4d; /* Couleur des boutons en vert */
-    color: #fff;
+    color: #F7EED9;
     border: none;
     padding: 10px 15px;
     border-radius: 5px;
@@ -65,7 +67,7 @@ h2 {
 }
 
 .service button.delete {
-    background-color: #b00000; /* Couleur rouge pour le bouton supprimer */
+    background-color: #8B4513; /* Couleur rouge pour le bouton supprimer */
 }
 
 .service form, .horaires form {
@@ -96,7 +98,7 @@ button {
 }
 
 button.delete {
-    background-color: #b00000;
+    background-color: #8B4513;
 }
 
 .services h2 {
@@ -140,7 +142,7 @@ button.delete {
 
 .horaires form label {
     margin: 10px 0 5px;
-    color: #333;
+    color: #2B390D;
     font-weight: bold;
 }
 
@@ -149,4 +151,103 @@ button.delete {
     margin-bottom: 10px;
     border-radius: 5px;
     border: 1px solid #ccc;
+}
+/* Media Q/* Media Queries pour les petits écrans */
+@media (max-width: 768px) {
+    /* Conteneur principal */
+    .services, .horaires {
+        width: 95%; /* S'assure que tout est bien visible sur petit écran */
+        padding: 15px;
+    }
+
+    h2 {
+        font-size: 20px; /* Réduire la taille du titre */
+        padding: 8px;
+    }
+
+    /* Ajuster la taille des images */
+    .service img {
+        max-width: 80px; /* Taille plus petite des images pour petits écrans */
+    }
+
+    /* Formulaire pour ajouter un service */
+    .services form input, 
+    .services form textarea {
+        padding: 8px;
+        font-size: 14px; /* Réduire la taille des textes dans les inputs */
+    }
+
+    /* Ajuster les boutons pour petits écrans */
+    .services form button,
+    .service button,
+    .horaires button {
+        width: 100%; /* Les boutons prennent toute la largeur sur petits écrans */
+        padding: 10px;
+        margin-bottom: 10px; /* Ajoute de l'espace entre les boutons */
+    }
+
+    /* Input pour fichier, masquer le texte "Aucun fichier choisi" */
+    input[type="file"] {
+        width: 100%; /* Le bouton prend toute la largeur */
+        display: block;
+    }
+
+    input[type="file"]::file-selector-button {
+        width: 100%;
+    }
+
+    /* Cacher complètement le texte "Aucun fichier choisi" sur petits écrans */
+    input[type="file"]::-webkit-file-upload-text {
+        display: none;
+    }
+}
+
+/* Media Queries pour très petits écrans */
+@media (max-width: 480px) {
+    /* Conteneur principal */
+    .services, .horaires {
+        width: 100%; /* Le conteneur prend toute la largeur disponible */
+        padding: 10px;
+    }
+
+    /* Réduire la taille des titres */
+    h2 {
+        font-size: 18px;
+        padding: 5px;
+    }
+
+    /* Réduire la taille des images */
+    .service img {
+        max-width: 60px; /* Taille plus petite pour les très petits écrans */
+    }
+
+    /* Formulaire pour ajouter un service */
+    .services form input, 
+    .services form textarea {
+        padding: 6px;
+        font-size: 12px; /* Réduire la taille du texte encore plus */
+    }
+
+    /* Les boutons prennent toute la largeur sur très petits écrans */
+    .services form button,
+    .service button,
+    .horaires button {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 8px;
+    }
+
+    /* Cacher complètement le texte "Aucun fichier choisi" */
+    input[type="file"] {
+        width: 100%;
+        display: block;
+    }
+
+    input[type="file"]::file-selector-button {
+        width: 100%;
+    }
+
+    input[type="file"]::-webkit-file-upload-text {
+        display: none; /* Cacher le texte */
+    }
 }

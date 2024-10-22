@@ -2,7 +2,6 @@
 body {
     margin: 0;
     padding: 0;
-
     background-color: #5D6A41; /* Ajout d'un background pour tout le site */
 }
 
@@ -16,20 +15,9 @@ body {
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
 }
 
-/* Conteneur principal pour la création de compte */
-.create-account {
-    width: 100%;
-    max-width: 800px;
-    background-color: #A4C639;
-    padding: 50px;
-    border-radius: 12px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-    text-align: left;
-}
-
 /* Titre principal */
-.create-account h1 {
-    color: #2F3E19;
+h1 {
+    color: #2B390D; /* Couleur du titre */
     margin-bottom: 30px;
     font-size: 36px;
     text-align: center;
@@ -38,13 +26,14 @@ body {
 
 /* Groupes de champs du formulaire */
 .form-group {
-    margin-bottom: 30px; /* Plus d'espace entre les champs */
+    margin-bottom: 30px;
+    color: #2B390D; /* Couleur des champs du formulaire */
 }
 
 /* Labels des champs */
 .form-group label {
     display: block;
-    color: #2F3E19;
+    color: #2B390D; /* Couleur des labels */
     margin-bottom: 10px;
     font-size: 18px;
     font-weight: bold;
@@ -60,13 +49,13 @@ body {
     border-radius: 6px;
     background-color: #F5F5F5;
     font-size: 16px;
-    color: #333;
+    color: #2B390D; /* Couleur du texte des champs */
 }
 
 /* Options de rôle */
 .role-options {
     display: flex;
-    gap: 30px; /* Plus d'espace entre les options */
+    gap: 30px;
     margin-bottom: 30px;
 }
 
@@ -74,7 +63,7 @@ body {
     display: flex;
     align-items: center;
     font-size: 16px;
-    color: #2F3E19;
+    color: #2B390D; /* Couleur des labels des rôles */
 }
 
 .role-options input[type="radio"] {
@@ -90,6 +79,7 @@ body {
 .password-container input {
     width: calc(100% - 40px);
     padding-right: 40px;
+    color: #2B390D; /* Couleur du texte dans le champ mot de passe */
 }
 
 /* Icône pour afficher le mot de passe */
@@ -106,7 +96,7 @@ body {
 /* Bouton de soumission */
 .btn-submit {
     background-color: #8B4513;
-    color: white;
+    color: #F7EDD9;
     padding: 12px 25px;
     border: none;
     border-radius: 6px;
@@ -162,4 +152,177 @@ table tr:nth-child(even) {
 
 table tr:hover {
     background-color: #B6BE64;
+}
+
+.supp{
+    background-color: #8B4513;
+    color: #F7EED9;
+    margin-top: 2%;
+}
+.mod{
+    background-color: #167BFF;
+    color: #F7EED9;
+}
+
+
+
+
+
+
+
+/* Media Queries pour les petits écrans */
+@media (max-width: 768px) {
+    /* Cacher l'en-tête du tableau */
+    table thead {
+        display: none;
+    }
+
+    /* Conteneur principal pour qu'il ne dépasse pas l'écran */
+    .content-container {
+        max-width: 95%; 
+        margin: 20px auto; /* Réduit les marges */
+        padding: 10px; /* Réduit l'espace intérieur */
+    }
+
+    /* Réduire la taille des champs de texte et mots de passe sur petits écrans */
+    table td input[type="text"],
+    table td input[type="password"],
+    table td select {
+        width: 100%; /* Prend toute la largeur pour éviter le débordement */
+        box-sizing: border-box; /* Inclut le padding dans la largeur totale */
+        margin-bottom: 10px; /* Ajoute un peu d'espace entre les champs */
+    }
+
+    /* Aligner les actions verticalement pour les petits écrans */
+    table td {
+        display: block; /* Transforme chaque cellule en bloc */
+        margin-bottom: 10px; /* Ajoute de l'espace entre les blocs */
+    }
+
+    table td button {
+        width: 100%; /* Les boutons prennent toute la largeur sur petits écrans */
+        margin-bottom: 10px; /* Ajoute de l'espace entre les boutons */
+       
+    }
+
+    /* Empêcher le débordement du texte dans les cellules sur petits écrans */
+    table td {
+        word-wrap: break-word;
+        white-space: normal;
+        overflow: hidden; /* Empêche le débordement visuel */
+        text-overflow: ellipsis; /* Ajoute des points de suspension si le texte est trop long */
+    }
+
+    /* Ajuster les éléments de formulaire en vertical */
+    table td input,
+    table td select {
+        display: block; /* Aligne les éléments verticalement */
+        margin-bottom: 10px; /* Ajoute de l'espace sous chaque élément */
+    }
+
+    /* Réduire la taille des tables pour qu'elles ne dépassent pas */
+    table {
+        font-size: 14px; /* Réduit la taille du texte dans les tables */
+    }
+
+    /* Ajuster la taille des cellules */
+    table th, table td {
+        padding: 10px; /* Réduit le padding des cellules */
+    }
+}
+/* Media Queries pour les petits écrans */
+@media (max-width: 768px) {
+    /* Cacher l'en-tête du tableau */
+    table thead {
+        display: none;
+    }
+
+    /* Conteneur principal pour qu'il ne dépasse pas l'écran */
+    .content-container {
+        max-width: 95%; 
+        margin: 20px auto; /* Réduit les marges */
+        padding: 10px; /* Réduit l'espace intérieur */
+    }
+
+    /* Réduire la taille des champs de texte et mots de passe sur petits écrans */
+    table td input[type="text"],
+    table td input[type="password"],
+    table td select {
+        width: 100%; /* Prend toute la largeur pour éviter le débordement */
+        box-sizing: border-box; /* Inclut le padding dans la largeur totale */
+        margin-bottom: 10px; /* Ajoute un peu d'espace entre les champs */
+    }
+
+    /* Aligner les actions verticalement pour les petits écrans */
+    table td {
+        display: block; /* Transforme chaque cellule en bloc */
+        margin-bottom: 10px; /* Ajoute de l'espace entre les blocs */
+    }
+
+    table td button {
+        width: 100%; /* Les boutons prennent toute la largeur sur petits écrans */
+        margin-bottom: 10px; /* Ajoute de l'espace entre les boutons */
+    }
+
+    /* Empêcher le débordement du texte dans les cellules sur petits écrans */
+    table td {
+        word-wrap: break-word;
+        white-space: normal;
+        overflow: hidden; /* Empêche le débordement visuel */
+        text-overflow: ellipsis; /* Ajoute des points de suspension si le texte est trop long */
+    }
+
+    /* Ajuster les éléments de formulaire en vertical */
+    table td input,
+    table td select {
+        display: block; /* Aligne les éléments verticalement */
+        margin-bottom: 10px; /* Ajoute de l'espace sous chaque élément */
+    }
+
+    /* Réduire la taille des tables pour qu'elles ne dépassent pas */
+    table {
+        font-size: 14px; /* Réduit la taille du texte dans les tables */
+    }
+
+    /* Ajuster la taille des cellules */
+    table th, table td {
+        padding: 10px; /* Réduit le padding des cellules */
+    }
+}
+
+/* Media Queries pour très petits écrans */
+@media (max-width: 480px) {
+    /* Empêcher le débordement sur les petits écrans */
+    table td input[type="text"],
+    table td input[type="password"],
+    table td select {
+        width: 100%; /* Les éléments prennent toute la largeur de la cellule */
+        box-sizing: border-box; /* Inclut le padding dans la largeur totale */
+    }
+
+    /* Aligner les boutons en vertical pour les très petits écrans */
+    table td button {
+        width: 100%; /* Les boutons prennent toute la largeur */
+        margin-bottom: 10px; /* Ajoute de l'espace entre les boutons */
+    }
+
+    /* Aligner verticalement les champs */
+    table td {
+        display: block; /* Chaque cellule devient un bloc */
+        margin-bottom: 10px; /* Ajoute de l'espace entre les éléments */
+    }
+
+    /* Réduire la taille des champs de texte sur très petits écrans */
+    table td input[type="text"],
+    table td input[type="password"],
+    table td select {
+        padding: 6px; /* Réduit la taille des champs */
+        font-size: 12px; /* Réduit la taille du texte dans les champs */
+    }
+
+    /* Réduire la taille des boutons */
+    table td button {
+        padding: 8px; /* Réduit la taille des boutons */
+        font-size: 12px; /* Réduit la taille du texte des boutons */
+    }
 }

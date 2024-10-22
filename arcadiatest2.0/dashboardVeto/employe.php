@@ -27,7 +27,7 @@ $animals = $animalQuery->fetch_all(MYSQLI_ASSOC);
     <main>
         <section class="intro">
             <h2>Suivi des Informations Modifiées par les Employés</h2>
-            <p>Cette page affiche en lecture seule les informations modifiées par les employés pour chaque animal.</p>
+            
         </section>
         <section class="animal-list">
             <?php foreach ($animals as $animal): ?>

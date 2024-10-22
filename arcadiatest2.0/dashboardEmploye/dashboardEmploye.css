@@ -1,7 +1,7 @@
 body {
   
     background-color: #F0EAD6; /* Couleur de fond beige */
-    color: #333;
+
     margin: 0;
     padding: 0;
     height: 100vh;
@@ -32,7 +32,7 @@ main {
     margin-top: 0;
     margin-bottom: 20px;
     font-size: 24px;
-    color: #fff;
+    color: #2B390D;
 }
 
 .grid-container {
@@ -48,13 +48,13 @@ main {
     align-items: center;
     justify-content: center;
     font-size: 18px;
-    color: white;
+    color: #F7EED9;
     text-align: center;
     padding: 20px; /* Ajouter du padding pour un meilleur espacement */
 }
 
 .grid-item a {
-    color: white;
+    color: #F7EED9;
     text-decoration: none;
     transition: text-decoration 0.5s ease;
 }

@@ -39,9 +39,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } elseif (empty($role)) {
             $error_message = "Veuillez sélectionner un rôle.";
         } elseif (!empty($new_password) || !empty($confirm_new_password)) {
-            $password_regex = '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/';
+            $password_regex = '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_])[a-zA-Z\d\W_]{8,}$/'; // Autorise les caractères spéciaux
             if (!preg_match($password_regex, $new_password)) {
-                $error_message = "Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule et un chiffre.";
+                $error_message = "Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial.";
             } elseif ($new_password !== $confirm_new_password) {
                 $error_message = "Les mots de passe ne correspondent pas.";
             } else {
@@ -70,12 +70,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $confirm_password = trim($_POST['confirm-password']);
         $role = isset($_POST['role']) ? $_POST['role'] : '';
 
-        $password_regex = '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/';
+        $password_regex = '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_])[a-zA-Z\d\W_]{8,}$/'; // Autorise les caractères spéciaux
 
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $error_message = "Adresse e-mail invalide.";
         } elseif (!preg_match($password_regex, $password)) {
-            $error_message = "Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule et un chiffre.";
+            $error_message = "Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial.";
         } elseif ($password !== $confirm_password) {
             $error_message = "Les mots de passe ne correspondent pas.";
         } elseif (empty($role)) {
@@ -122,10 +122,10 @@ if ($result) {
             var confirmPassword = document.getElementById("confirm-password").value;
             var passwordError = "";
 
-            var regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+            var regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_])[a-zA-Z\d\W_]{8,}$/;
 
             if (!regex.test(password)) {
-                passwordError = "Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule et un chiffre.";
+                passwordError = "Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial.";
                 document.getElementById("password-error").textContent = passwordError;
                 return false;
             }
@@ -137,6 +137,15 @@ if ($result) {
             }
 
             return true;
+        }
+
+        function togglePasswordVisibility(inputId) {
+            var input = document.getElementById(inputId);
+            if (input.type === "password") {
+                input.type = "text";
+            } else {
+                input.type = "password";
+            }
         }
     </script>
 </head>
@@ -184,7 +193,6 @@ if ($result) {
         <table>
             <thead>
                 <tr>
-                   
                     <th>Email</th>
                     <th>Rôle</th>
                     <th>Actions</th>
@@ -193,7 +201,6 @@ if ($result) {
             <tbody>
                 <?php foreach ($users as $user): ?>
                     <tr>
-                    
                         <td><?= htmlspecialchars($user['email']) ?></td>
                         <td><?= htmlspecialchars($user['role']) ?></td>
                         <td>
@@ -208,12 +215,12 @@ if ($result) {
                                 </select>
                                 <input type="password" name="new_password" placeholder="Nouveau mot de passe">
                                 <input type="password" name="confirm_new_password" placeholder="Confirmer le nouveau mot de passe">
-                                <button type="submit">Modifier</button>
+                                <button class="mod" type="submit">Modifier</button>
                             </form>
                             <form method="post" action="" style="display:inline;">
                                 <input type="hidden" name="user_id" value="<?= htmlspecialchars($user['id']) ?>">
                                 <input type="hidden" name="delete_user" value="1">
-                                <button type="submit" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?');">Supprimer</button>
+                                <button class="supp" type="submit" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?');">Supprimer</button>
                             </form>
                         </td>
                     </tr>

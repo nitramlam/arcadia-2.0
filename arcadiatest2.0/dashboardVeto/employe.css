@@ -1,77 +1,81 @@
-/* veterinaire_lecture.css */
-
-/* Styles de base */
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    margin: 0;
-    padding: 0;
-}
-
+/* Section principale */
 main {
-    max-width: 1200px;
-    margin: 0 auto;
+    width: 100%;
     padding: 20px;
-    background-color: #fff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #B6BE64;
+    text-align: center;
 }
 
-/* En-tête de la section */
-.intro {
-    text-align: center;
+h1, h2 {
+    font-size: 2.5rem;
+    color: #2B390D;
     margin-bottom: 20px;
 }
 
-.intro h2 {
-    color: #333;
-}
-
 .intro p {
-    color: #666;
-    font-size: 1.1em;
+    font-size: 1.125rem;
+    color: #2B390D;
+    margin-bottom: 30px;
 }
 
-/* Liste des animaux */
+/* Conteneur pour la liste des animaux */
 .animal-list {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Ajuste le nombre de colonnes selon la taille de l'écran */
     gap: 20px;
-}
-
-.animal-card {
-    flex: 1 1 calc(33.333% - 40px);
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
+    max-width: 1200px;
+    margin: 0 auto;
     padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    position: relative;
 }
 
+/* Style pour chaque animal */
+.animal-card {
+    background-color: #F7EDD9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    text-align: center;
+}
+
+/* Style pour le nom de l'animal */
 .animal-card h3 {
-    margin-top: 0;
-    color: #333;
+    font-size: 1.75rem;
+    color: #2B390D;
+    margin-bottom: 10px;
 }
 
-/* Détails de l'animal */
-.animal-details {
-    margin-top: 10px;
-}
-
+/* Style pour les détails de l'animal */
 .animal-details p {
-    color: #555;
+    font-size: 1.125rem;
+    color: #4A5A25;
     margin: 5px 0;
 }
 
-/* Responsive styles */
-@media (max-width: 768px) {
-    .animal-card {
-        flex: 1 1 calc(50% - 20px);
-    }
+/* Effet de hover pour les cartes d'animaux */
+.animal-card:hover {
+    transform: scale(1.05);
 }
 
-@media (max-width: 480px) {
+/* Responsive styles pour les petits écrans */
+@media (max-width: 768px) {
+    h1, h2 {
+        font-size: 2rem;
+    }
+
+    .animal-list {
+        grid-template-columns: 1fr; /* Une colonne sur les petits écrans */
+    }
+
     .animal-card {
-        flex: 1 1 100%;
+        padding: 15px;
+    }
+
+    .animal-card h3 {
+        font-size: 1.5rem;
+    }
+
+    .animal-details p {
+        font-size: 1rem;
     }
 }

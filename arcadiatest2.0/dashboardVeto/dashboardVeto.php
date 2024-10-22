@@ -17,7 +17,7 @@ require_once(__DIR__ . '/../includes/header.php');
                     <a href="/dashboardVeto/habitats.php">HABITAT</a>
                 </div>
                 <div class="grid-item blue">
-                    <a href="/dashboardVeto/employe.php">passage employé</a>
+                    <a href="/dashboardVeto/employe.php">PASSAGE EMPLOYE</a>
                 </div>
                 <div class="grid-item brown">
                     <a href="/dashboardVeto/compteRendu.php">COMPTE RENDU</a>

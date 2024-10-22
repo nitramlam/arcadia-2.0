@@ -8,16 +8,18 @@
 }
 
 body {
-  font-family: Arial, sans-serif;
+
   line-height: 1.6;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  background-color: #8B4513;
 }
 
 h1 {
   text-align: center;
   margin-top: 20px;
+  color: #F7EED9;
 }
 
 .error-message {
@@ -27,12 +29,12 @@ h1 {
 }
 
 form {
-  max-width: 500px;
+  max-width: 700px;
   margin: 20px auto;
   padding: 20px;
   border: 1px solid #ddd;
   border-radius: 5px;
-  background: #f9f9f9;
+  background-color: #F7EED9;
 }
 
 .form-group {
@@ -46,6 +48,7 @@ form {
 
 input[type="email"],
 input[type="password"] {
+
   width: 100%;
   padding: 10px;
   border: 1px solid #ccc;
@@ -70,7 +73,7 @@ input[type="password"] {
   width: 100%;
   padding: 10px;
   background-color: #007BFF;
-  color: white;
+  color: #2B390D;
   border: none;
   border-radius: 5px;
   font-size: 16px;
@@ -84,8 +87,7 @@ input[type="password"] {
 footer {
   margin-top: auto;
   padding: 10px 0;
-  background: #007BFF;
-  color: white;
+
   text-align: center;
 }
 

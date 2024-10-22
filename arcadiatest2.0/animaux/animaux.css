@@ -1,10 +1,15 @@
+body {
+    background-color:#556B2F;
+}
+
 /* Section d'introduction */
 .intro {
-    background-color: #556B2F;
+    background-color: #8B4513;
     color: #F7EDD9;
     padding: 40px 20px;
     text-align: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2%;
 }
 
 .intro h1 {
@@ -23,9 +28,10 @@
 
 /* Section principale */
 main {
-    width: 100%;
-    margin: 0 0;
+    width: 80%;
+    margin: 0 auto;
     padding: 0;
+   
 }
 
 /* Conteneurs pour les animaux et habitats */
@@ -33,7 +39,7 @@ main {
     display: flex;
     flex-direction: column;
     gap: 30px;
-    max-width: 1200px;
+    max-width: 100%;
     margin: 0 auto;
     padding: 0 20px;
 }
@@ -46,6 +52,7 @@ main {
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2%;
 }
 
 /* Styles pour les titres et textes */
@@ -57,7 +64,7 @@ main {
 
 .animal p, .habitat p {
     margin: 5px 0;
-    font-size: 18px;
+    font-size: 30px;
     color: #4A5A25;
 }
 

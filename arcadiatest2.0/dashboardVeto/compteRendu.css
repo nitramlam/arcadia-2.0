@@ -1,84 +1,84 @@
-/* veterinaire.css */
-
-/* Styles de base */
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    margin: 0;
-    padding: 0;
-}
-
+/* Section principale */
 main {
-    max-width: 1200px;
-    margin: 0 auto;
+    width: 100%;
     padding: 20px;
-    background-color: #fff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #B6BE64;
+    text-align: center;
 }
 
-/* En-tête de la section */
-.intro {
-    text-align: center;
+h1, h2 {
+    font-size: 2.5rem;
+    color: #2B390D;
     margin-bottom: 20px;
 }
 
-.intro h2 {
-    color: #333;
-}
-
 .intro p {
-    color: #666;
-    font-size: 1.1em;
+    font-size: 1.125rem;
+    color: #2B390D;
+    margin-bottom: 30px;
 }
 
-/* Liste des animaux */
+/* Conteneur pour la liste des animaux */
 .animal-list {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Ajuste le nombre de colonnes selon la taille de l'écran */
     gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
 }
 
+/* Style pour chaque animal */
 .animal-card {
-    flex: 1 1 calc(33.333% - 40px);
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
+    background-color: #F7EED9;
     padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(43, 57, 13, 0.1);
+    transition: transform 0.3s ease;
+    text-align: center;
     position: relative;
 }
 
+/* Style pour le nom de l'animal */
 .animal-card h3 {
-    margin-top: 0;
-    color: #333;
+    font-size: 1.75rem;
+    color: #2B390D;
+    margin-bottom: 10px;
 }
 
-.animal-card button.edit-toggle {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background-color: #007bff;
-    color: #fff;
+/* Bouton pour basculer vers le formulaire d'édition */
+.edit-toggle {
+    background-color: #8B4513;
+    color: #F7EED9;
     border: none;
     border-radius: 4px;
     padding: 5px 10px;
     cursor: pointer;
+    position: absolute;
+    top: 20px;
+    right: 20px;
 }
 
-.animal-card button.edit-toggle:hover {
-    background-color: #0056b3;
+.edit-toggle:hover {
+    background-color: #9ACD33;
 }
 
-/* Formulaire d'animal */
+/* Formulaire d'édition caché */
 .animal-form {
-    display: none;
+    background-color: #F7EED9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(43, 57, 13, 0.1);
     margin-top: 20px;
+    display: none; /* Par défaut, le formulaire est caché */
 }
 
+/* Styles pour les labels et les champs du formulaire */
 .animal-form label {
     display: block;
     margin-bottom: 10px;
-    color: #555;
+    font-weight: bold;
+    color: #2B390D;
 }
 
 .animal-form input[type="text"],
@@ -87,38 +87,100 @@ main {
 .animal-form textarea {
     width: 100%;
     padding: 10px;
-    border: 1px solid #ddd;
+    border: 1px solid #6B8E23;
     border-radius: 4px;
+    margin-bottom: 10px;
     box-sizing: border-box;
+    background-color: #F7EDD9;
+    color: #2B390D;
 }
 
-.animal-form textarea {
-    height: 80px;
-}
-
-.animal-form button.edit-btn {
-    background-color: #28a745;
-    color: #fff;
+/* Bouton de mise à jour */
+.edit-btn {
+    background-color: #9ACD33;
+    color: #2B390D;
     border: none;
     border-radius: 4px;
     padding: 10px 20px;
     cursor: pointer;
-    margin-top: 10px;
 }
 
-.animal-form button.edit-btn:hover {
-    background-color: #218838;
+.edit-btn:hover {
+    background-color: #6B8E23;
 }
 
-/* Responsive styles */
+/* Effet de hover pour les cartes d'animaux */
+.animal-card:hover {
+    transform: scale(1.05);
+}
+
+/* Responsive styles pour les petits écrans */
 @media (max-width: 768px) {
+    h1, h2 {
+        font-size: 2rem;
+    }
+
+    .animal-list {
+        grid-template-columns: 1fr; /* Une colonne sur les petits écrans */
+    }
+
     .animal-card {
-        flex: 1 1 calc(50% - 20px);
+        padding: 15px;
+    }
+
+    .animal-card h3 {
+        font-size: 1.5rem;
+    }
+
+    .animal-form label {
+        font-size: 0.9em;
+    }
+
+    .animal-form input,
+    .animal-form textarea {
+        font-size: 0.9em;
+        padding: 8px;
+    }
+
+    .edit-btn {
+        font-size: 0.9em;
+        padding: 8px 16px;
     }
 }
 
+/* Media Queries pour les très petits écrans */
 @media (max-width: 480px) {
+    .animal-list {
+        flex-direction: column;
+    }
+
     .animal-card {
-        flex: 1 1 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+    }
+
+    .animal-form label {
+        font-size: 0.8em;
+    }
+
+    .animal-form input[type="text"],
+    .animal-form input[type="number"],
+    .animal-form input[type="date"],
+    .animal-form textarea {
+        font-size: 0.8em;
+        padding: 6px;
+    }
+
+    .edit-btn {
+        font-size: 0.8em;
+        padding: 6px 12px;
+    }
+
+    .edit-toggle {
+        padding: 5px 8px;
+    }
+
+    .animal-card h3 {
+        font-size: 1.2rem;
     }
 }

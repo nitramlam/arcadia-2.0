@@ -1,8 +1,137 @@
-.oui{
-    background-color: #B6BE64;
-    color: #F7EDD9;
+/* Styles de base */
+body {
+    background-color: #F7EED9;
+    margin: 0;
+    padding: 0;
+    color: #2B390D; /* Couleur de texte proche du noir */
 }
-.non{
-    background-color: #A54835;
-    color: #F7EDD9;
+
+main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #6B8E23;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+h1 {
+    text-align: center;
+    color: #2B390D;
+    background-color: #F7EED9;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.avis {
+    background-color: #F7EED9;
+    border: 2px solid #8B4513;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.avis strong {
+    color: #8B4513; /* Texte pour les labels de pseudo et commentaire */
+}
+
+.actions {
+    margin-top: 15px;
+}
+
+button {
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+/* Bouton "Approuver" */
+button[name="action"][value="approve"] {
+    background-color: #9ACD33; /* Couleur verte pour approuver */
+    color: #2B390D;
+}
+
+button[name="action"][value="approve"]:hover {
+    background-color: #6B8E23; /* Plus foncé au survol */
+}
+
+/* Bouton "Supprimer" */
+button[name="action"][value="delete"] {
+    background-color: #8B4513; /* Couleur brune pour supprimer */
+    color: #F7EED9;
+}
+
+button[name="action"][value="delete"]:hover {
+    background-color: #C23B22; /* Plus rougeâtre au survol */
+}
+
+button:focus {
+    outline: none;
+    box-shadow: 0 0 5px #9ACD33;
+}
+
+/* Responsive Design */
+
+/* Écrans moyens */
+@media (max-width: 1024px) {
+    main {
+        padding: 15px;
+    }
+
+    .avis {
+        padding: 15px;
+    }
+
+    button {
+        padding: 8px 15px;
+    }
+}
+
+/* Écrans petits */
+@media (max-width: 768px) {
+    main {
+        padding: 10px;
+    }
+
+    h1 {
+        font-size: 1.5em;
+        padding: 10px;
+    }
+
+    .avis {
+        padding: 10px;
+    }
+
+    .actions {
+        display: flex;
+        flex-direction: column;
+    }
+
+    button {
+        width: 100%;
+        margin: 5px 0;
+    }
+}
+
+/* Très petits écrans */
+@media (max-width: 480px) {
+    main {
+        padding: 5px;
+    }
+
+    h1 {
+        font-size: 1.2em;
+        padding: 8px;
+    }
+
+    .avis {
+        padding: 8px;
+    }
+
+    button {
+        padding: 6px 12px;
+        font-size: 0.9em;
+    }
 }

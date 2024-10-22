@@ -55,6 +55,7 @@ textarea {
 
 button[type="submit"].btn {
     padding: 10px 20px;
+    width: 20%;
     font-size: 1.125rem;
     color: #F5EDD9;
     background-color: #A54835;
@@ -90,5 +91,6 @@ button[type="submit"].btn:hover {
 
     button[type="submit"].btn {
         font-size: 1rem;
+        width: 50%;
     }
 }
