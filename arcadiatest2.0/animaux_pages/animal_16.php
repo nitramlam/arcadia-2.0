@@ -18,13 +18,13 @@ $manager->executeBulkWrite('arcadia.animal_views', $bulk);
 <html lang='fr'>
 <head>
     <meta charset='UTF-8'>
-    <title>Léonardo - Page Personnalisée</title>
+    <title>Léonard - Page Personnalisée</title>
     <link rel='stylesheet' href='animauxPage.css'>
 </head>
 <body>
     <div class="animal-main">
-        <h1 class="animal-title">Léonardo</h1>
-        <img class="animal-photo" src="/animaux/elephant1.png" alt="Léonardo">
+        <h1 class="animal-title">Léonard</h1>
+        <img class="animal-photo" src="/animaux/elephant1.png" alt="Léonard">
         <div class="info-section">
             <h2>Informations Générales</h2>
             <div class="general-info">

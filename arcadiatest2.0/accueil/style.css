@@ -270,7 +270,9 @@ main {
     }
 
     .icons img {
-        width: 50%;
+        width: 100%; /* Utilise un pourcentage pour que les icônes s'ajustent aux petits écrans */
+        max-width: none; /* Désactive la largeur maximale fixe */
+        height: auto;
     }
 
     .services {
@@ -301,7 +303,7 @@ main {
     }
 
     .flecheServices {
-        width: 20%;
+        width: 15%;
         margin: 1rem 0;
   
         transition: transform 0.7s ease;
@@ -347,7 +349,8 @@ main {
     }
 
     .flecheHabitats {
-        width: 20%;
+    
+        width: 15%;
         transition: transform 0.7s ease;
     }
 
@@ -382,7 +385,7 @@ main {
     }
 
     .flecheAnimaux {
-        width: 20%;
+        width: 15%;
         transition: transform 0.7s ease;
         left: 0;
         align-self: start;

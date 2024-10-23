@@ -115,6 +115,7 @@
    
    .avisCarousel {
        width: 100%;
+       margin: 0 auto;
        margin-bottom: 20px;
        background-color: #F7EDD9;
        display: flex;
@@ -158,12 +159,13 @@
 
    .avisTitre,
    .avisDescription {
-       width: 100%;
+       width: 80%;
        text-align: center;
        margin: 5% 0;
    }
 
    .avisDescription {
-       margin-left: 50px; /* Ajoute de l'espace entre le pseudo et le commentaire */
+    
+       margin-left: 50px; 
    }
 }
